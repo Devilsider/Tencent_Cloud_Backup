@@ -1,0 +1,147 @@
+PTHREAD_COND_BROADCAST(3POSIX)               POSIX Programmer's Manual               PTHREAD_COND_BROADCAST(3POSIX)
+
+PPRROOLLOOGG
+       This  manual  page is part of the POSIX Programmer's Manual.  The Linux implementation of this interface may
+       differ (consult the corresponding Linux manual page for details of Linux behavior), or the interface may not
+       be implemented on Linux.
+
+NNAAMMEE
+       pthread_cond_broadcast, pthread_cond_signal — broadcast or signal a condition
+
+SSYYNNOOPPSSIISS
+       #include <pthread.h>
+
+       int pthread_cond_broadcast(pthread_cond_t *_c_o_n_d);
+       int pthread_cond_signal(pthread_cond_t *_c_o_n_d);
+
+DDEESSCCRRIIPPTTIIOONN
+       These functions shall unblock threads blocked on a condition variable.
+
+       The _p_t_h_r_e_a_d___c_o_n_d___b_r_o_a_d_c_a_s_t() function shall unblock all threads currently blocked on the specified condition
+       variable _c_o_n_d.
+
+       The _p_t_h_r_e_a_d___c_o_n_d___s_i_g_n_a_l() function shall unblock at least one of the threads that are blocked on the  speci‐
+       fied condition variable _c_o_n_d (if any threads are blocked on _c_o_n_d).
+
+       If  more than one thread is blocked on a condition variable, the scheduling policy shall determine the order
+       in which threads are unblocked. When each thread unblocked as a  result  of  a  _p_t_h_r_e_a_d___c_o_n_d___b_r_o_a_d_c_a_s_t()  or
+       _p_t_h_r_e_a_d___c_o_n_d___s_i_g_n_a_l()  returns  from its call to _p_t_h_r_e_a_d___c_o_n_d___w_a_i_t() or _p_t_h_r_e_a_d___c_o_n_d___t_i_m_e_d_w_a_i_t(), the thread
+       shall own the mutex with which it called _p_t_h_r_e_a_d___c_o_n_d___w_a_i_t()  or  _p_t_h_r_e_a_d___c_o_n_d___t_i_m_e_d_w_a_i_t().   The  thread(s)
+       that are unblocked shall contend for the mutex according to the scheduling policy (if applicable), and as if
+       each had called _p_t_h_r_e_a_d___m_u_t_e_x___l_o_c_k().
+
+       The _p_t_h_r_e_a_d___c_o_n_d___b_r_o_a_d_c_a_s_t() or _p_t_h_r_e_a_d___c_o_n_d___s_i_g_n_a_l() functions may be called by a thread whether or not  it
+       currently  owns  the mutex that threads calling _p_t_h_r_e_a_d___c_o_n_d___w_a_i_t() or _p_t_h_r_e_a_d___c_o_n_d___t_i_m_e_d_w_a_i_t() have associ‐
+       ated with the condition variable  during  their  waits;  however,  if  predictable  scheduling  behavior  is
+       required,   then   that   mutex   shall   be  locked  by  the  thread  calling  _p_t_h_r_e_a_d___c_o_n_d___b_r_o_a_d_c_a_s_t()  or
+       _p_t_h_r_e_a_d___c_o_n_d___s_i_g_n_a_l().
+
+       The _p_t_h_r_e_a_d___c_o_n_d___b_r_o_a_d_c_a_s_t() and _p_t_h_r_e_a_d___c_o_n_d___s_i_g_n_a_l() functions shall  have  no  effect  if  there  are  no
+       threads currently blocked on _c_o_n_d.
+
+       The  behavior  is  undefined  if  the  value  specified  by the _c_o_n_d argument to _p_t_h_r_e_a_d___c_o_n_d___b_r_o_a_d_c_a_s_t() or
+       _p_t_h_r_e_a_d___c_o_n_d___s_i_g_n_a_l() does not refer to an initialized condition variable.
+
+RREETTUURRNN VVAALLUUEE
+       If successful, the _p_t_h_r_e_a_d___c_o_n_d___b_r_o_a_d_c_a_s_t() and _p_t_h_r_e_a_d___c_o_n_d___s_i_g_n_a_l() functions shall  return  zero;  other‐
+       wise, an error number shall be returned to indicate the error.
+
+EERRRROORRSS
+       These functions shall not return an error code of [[EEIINNTTRR]].
+
+       _T_h_e _f_o_l_l_o_w_i_n_g _s_e_c_t_i_o_n_s _a_r_e _i_n_f_o_r_m_a_t_i_v_e_.
+
+EEXXAAMMPPLLEESS
+       None.
+
+AAPPPPLLIICCAATTIIOONN UUSSAAGGEE
+       The  _p_t_h_r_e_a_d___c_o_n_d___b_r_o_a_d_c_a_s_t()  function is used whenever the shared-variable state has been changed in a way
+       that more than one thread can proceed with its task. Consider a single producer/multiple  consumer  problem,
+       where the producer can insert multiple items on a list that is accessed one item at a time by the consumers.
+       By calling the _p_t_h_r_e_a_d___c_o_n_d___b_r_o_a_d_c_a_s_t() function, the producer would notify  all  consumers  that  might  be
+       waiting,  and  thereby  the  application  would  receive  more throughput on a multi-processor. In addition,
+       _p_t_h_r_e_a_d___c_o_n_d___b_r_o_a_d_c_a_s_t() makes it easier to implement a read-write lock. The _p_t_h_r_e_a_d___c_o_n_d___b_r_o_a_d_c_a_s_t()  func‐
+       tion  is  needed  in order to wake up all waiting readers when a writer releases its lock. Finally, the two-
+       phase commit algorithm can use this broadcast function to notify all clients  of  an  impending  transaction
+       commit.
+
+       It is not safe to use the _p_t_h_r_e_a_d___c_o_n_d___s_i_g_n_a_l() function in a signal handler that is invoked asynchronously.
+       Even if it were safe, there would still be a race between the test of the Boolean  _p_t_h_r_e_a_d___c_o_n_d___w_a_i_t()  that
+       could not be efficiently eliminated.
+
+       Mutexes  and condition variables are thus not suitable for releasing a waiting thread by signaling from code
+       running in a signal handler.
+
+RRAATTIIOONNAALLEE
+       If an implementation detects that the value specified by the _c_o_n_d argument  to  _p_t_h_r_e_a_d___c_o_n_d___b_r_o_a_d_c_a_s_t()  or
+       _p_t_h_r_e_a_d___c_o_n_d___s_i_g_n_a_l()  does not refer to an initialized condition variable, it is recommended that the func‐
+       tion should fail and report an [[EEIINNVVAALL]] error.
+
+   MMuullttiippllee AAwwaakkeenniinnggss bbyy CCoonnddiittiioonn SSiiggnnaall
+       On a multi-processor, it may be impossible for an  implementation  of  _p_t_h_r_e_a_d___c_o_n_d___s_i_g_n_a_l()  to  avoid  the
+       unblocking of more than one thread blocked on a condition variable. For example, consider the following par‐
+       tial implementation of _p_t_h_r_e_a_d___c_o_n_d___w_a_i_t() and _p_t_h_r_e_a_d___c_o_n_d___s_i_g_n_a_l(), executed by two threads in  the  order
+       given.  One  thread  is  trying  to  wait  on  the  condition  variable,  another  is concurrently executing
+       _p_t_h_r_e_a_d___c_o_n_d___s_i_g_n_a_l(), while a third thread is already waiting.
+
+           pptthhrreeaadd__ccoonndd__wwaaiitt((mmuutteexx,, ccoonndd))::
+               vvaalluuee == ccoonndd-->>vvaalluuee;; //** 11 **//
+               pptthhrreeaadd__mmuutteexx__uunnlloocckk((mmuutteexx));; //** 22 **//
+               pptthhrreeaadd__mmuutteexx__lloocckk((ccoonndd-->>mmuutteexx));; //** 1100 **//
+               iiff ((vvaalluuee ==== ccoonndd-->>vvaalluuee)) {{ //** 1111 **//
+                   mmee-->>nneexxtt__ccoonndd == ccoonndd-->>wwaaiitteerr;;
+                   ccoonndd-->>wwaaiitteerr == mmee;;
+                   pptthhrreeaadd__mmuutteexx__uunnlloocckk((ccoonndd-->>mmuutteexx));;
+                   uunnaabbllee__ttoo__rruunn((mmee));;
+               }} eellssee
+                   pptthhrreeaadd__mmuutteexx__uunnlloocckk((ccoonndd-->>mmuutteexx));; //** 1122 **//
+               pptthhrreeaadd__mmuutteexx__lloocckk((mmuutteexx));; //** 1133 **//
+
+           pthread_cond_signal(cond):
+               pthread_mutex_lock(cond->mutex); /* 3 */
+               cond->value++; /* 4 */
+               if (cond->waiter) { /* 5 */
+                   sleeper = cond->waiter; /* 6 */
+                   cond->waiter = sleeper->next_cond; /* 7 */
+                   able_to_run(sleeper); /* 8 */
+               }
+               pthread_mutex_unlock(cond->mutex); /* 9 */
+
+       The  effect  is  that  more  than  one  thread  can  return  from  its  call   to   _p_t_h_r_e_a_d___c_o_n_d___w_a_i_t()   or
+       _p_t_h_r_e_a_d___c_o_n_d___t_i_m_e_d_w_a_i_t() as a result of one call to _p_t_h_r_e_a_d___c_o_n_d___s_i_g_n_a_l().  This effect is called ``spurious
+       wakeup''.  Note that the situation is self-correcting in that the number of threads that are so awakened  is
+       finite; for example, the next thread to call _p_t_h_r_e_a_d___c_o_n_d___w_a_i_t() after the sequence of events above blocks.
+
+       While  this problem could be resolved, the loss of efficiency for a fringe condition that occurs only rarely
+       is unacceptable, especially given that one has to check the predicate associated with a  condition  variable
+       anyway.  Correcting this problem would unnecessarily reduce the degree of concurrency in this basic building
+       block for all higher-level synchronization operations.
+
+       An added benefit of allowing spurious wakeups is that applications are forced to code  a  predicate-testing-
+       loop  around  the condition wait.  This also makes the application tolerate superfluous condition broadcasts
+       or signals on the same condition variable that may be coded in some  other  part  of  the  application.  The
+       resulting  applications  are  thus  more  robust. Therefore, POSIX.1‐2008 explicitly documents that spurious
+       wakeups may occur.
+
+FFUUTTUURREE DDIIRREECCTTIIOONNSS
+       None.
+
+SSEEEE AALLSSOO
+       _p_t_h_r_e_a_d___c_o_n_d___d_e_s_t_r_o_y(), _p_t_h_r_e_a_d___c_o_n_d___t_i_m_e_d_w_a_i_t()
+
+       The Base Definitions volume of POSIX.1‐2008, _S_e_c_t_i_o_n _4_._1_1, _M_e_m_o_r_y _S_y_n_c_h_r_o_n_i_z_a_t_i_o_n, <<pptthhrreeaadd..hh>>
+
+CCOOPPYYRRIIGGHHTT
+       Portions of this text are reprinted and reproduced in electronic form from IEEE Std  1003.1,  2013  Edition,
+       Standard  for  Information  Technology  --  Portable Operating System Interface (POSIX), The Open Group Base
+       Specifications Issue 7, Copyright (C) 2013 by the Institute of Electrical and Electronics Engineers, Inc and
+       The  Open  Group.  (This is POSIX.1-2008 with the 2013 Technical Corrigendum 1 applied.) In the event of any
+       discrepancy between this version and the original IEEE and The Open Group Standard, the  original  IEEE  and
+       The  Open  Group  Standard  is  the  referee  document.  The  original  Standard  can  be obtained online at
+       http://www.unix.org/online.html .
+
+       Any typographical or formatting errors that appear in this page are most likely to have been introduced dur‐
+       ing  the  conversion  of  the  source  files to man page format. To report such errors, see https://www.ker‐
+       nel.org/doc/man-pages/reporting_bugs.html .
+
+IEEE/The Open Group                                     2013                         PTHREAD_COND_BROADCAST(3POSIX)
