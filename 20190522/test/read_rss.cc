@@ -1,6 +1,7 @@
 #include "read_rss.h"
 using std::to_string;
 using std::ofstream;
+using std::regex;
 void RssReader::parseRss(const string &filename){
     tinyxml2::XMLDocument doc;
     doc.LoadFile(filename.c_str());
@@ -16,38 +17,45 @@ void RssReader::parseRss(const string &filename){
         cout<<"get channel error!"<<endl;
         return;
     }
+    RssItem tmp;
 
+    tmp.title.clear();
     XMLElement* title=channel->FirstChildElement("title");
+    tmp.title=title->GetText();
     /* cout<<"titlename :"<<title->Name()<<" tiltletxt:"<<title->GetText()<<endl; */
 
+    tmp.link.clear();
     XMLElement* link=title->NextSiblingElement("link");
+    tmp.link=link->GetText();
     /* cout<<"link is "<<link->Name()<<endl; */
     /* printf("link is %s",link->GetText()); */
 
+    tmp.description.clear();
     XMLElement* description=title->NextSiblingElement("description");
+    tmp.description=description->GetText();
     /* cout<<"description is "<<description->Name()<<endl; */
     /* cout<<"description txt is "<<description->GetText()<<endl; */
 
+    tmp.content.clear();
+    _rss.push_back(tmp);
     XMLElement* item=title->NextSiblingElement("item");
     /* cout<<"item name "<<item->Name()<<endl; */
     /* cout<<"item txt"<<item->GetText()<<endl; */
-    int count=0;
-
+     
     while(item){
         //获取依次获取link title description content
         //可封装
-        string contentFileName("content");
-        RssItem tmp;
         //    读取title
-        bzero(&tmp.title,tmp.title.size());
+        tmp.title.clear();
         XMLElement* itemTitle=item->FirstChildElement("title");
         tmp.title=itemTitle->GetText();
         //    读取link
-        bzero(&tmp.link,tmp.link.size());
+        tmp.link.clear();
         XMLElement* itemLink=item->FirstChildElement("link");
         tmp.link=itemLink->GetText();
+        /* printf("tmp.link is %s \n",itemLink->GetText()); */
         /* printf("test link is  %s\n",tmp.link.c_str()); */
-        bzero(&tmp.description,tmp.description.size());
+        tmp.description.clear() ;
         XMLElement* itemDescription=item->FirstChildElement("description");
         tmp.description=itemDescription->GetText();
     
@@ -59,7 +67,7 @@ void RssReader::parseRss(const string &filename){
         /* ofstream ofs(contentFileName); */
         /* ofs<<itemContent->GetText(); */
         //读取content
-        bzero(&tmp.content,tmp.content.size());
+        tmp.content.clear(); 
         XMLElement* itemContent=item->FirstChildElement("content:encoded");
         tmp.content=itemContent->GetText();
         
@@ -73,20 +81,45 @@ void RssReader::parseRss(const string &filename){
         _rss.push_back(tmp);
         item=item->NextSiblingElement("item");
     }
-    for(auto i:_rss){
-        cout<<"tmp is "<<endl
-            <<"title is "<<i.title<<endl;
-        printf("test link is  %s\n",i.link.c_str());
-        cout<<"description is "<<i.description<<endl;
-        /* cout<<"content is "<<tmp.content<<endl; */
+    /* for(auto i:_rss){ */
+    /*     cout<<"tmp is "<<endl */
+    /*         <<"title is "<<i.title<<endl; */
+    /*     printf("test link is  %s\n",i.link.c_str()); */
+    /*     cout<<"description is "<<i.description<<endl; */
+    /*     /1* cout<<"content is "<<tmp.content<<endl; *1/ */
 
-    }
+    /* } */
 
 }
+void RssReader::dump(const string &filename){
+    ofstream ofs(filename,std::ios::app);
+    int id=0;
+    string tmp;
+    for(auto &i:_rss){
+        ofs<<"<doc>"<<endl;
+        ofs<<" <docid> "<<id<<"</docid>"<<endl;
+        ofs<<" <title> "<<i.title<<"</title>"<<endl;
+        ofs<<" <link> "<<i.link<<"</link>"<<endl;
+        ofs<<" <description> "<<i.description<<"</description>"<<endl;
+        //将<*> 都替换成空格
+        regex pattern("<.*?>");
+        tmp.clear(); 
+        tmp=regex_replace(i.content,pattern," ");
+        i.content.clear();
+        i.content=tmp;
+        ofs<<" <content> "<<i.content<<"</content>"<<endl;
+        ofs<<"</doc>"<<endl;
+        ++id;
+    }
+    ofs.close();
+}
+
+
 int main()
 {
     RssReader rr;
     rr.parseRss("coolshell.xml");
+    rr.dump("pagelib.txt");
     return 0;
 }
 
