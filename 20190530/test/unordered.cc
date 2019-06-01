@@ -74,10 +74,36 @@ struct PointEqual{
     }
 };
 
+void test0(){
+    unordered_set<Point,PointHasher,PointEqual> points{
+        Point(1,2),
+        Point(1,2),
+        Point(3,4),
+        Point(5,6),
+        Point(-1,2),
+        Point(7,8)
+    };
+    auto it=points.begin();
+    for(;it!=points.end();++it){
+        cout<<*it<<" ";
+    }
+    cout<<endl;
+
+    auto ret=points.insert(Point(-1,4));
+    if(ret.second){
+        cout<<"添加成功！"<<endl;
+        cout<<*ret.first<<endl;
+    }
+    else{
+        cout<<"添加失败!"<<endl;
+        cout<<*ret.first<<endl;
+    }
+}
+
 
 int main()
 {
-    std::cout << "Hello world" << std::endl;
+    test0() ;
     return 0;
 }
 
