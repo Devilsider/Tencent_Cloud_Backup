@@ -9,7 +9,7 @@ using namespace std;
 class QueryResult;
 class TextQuery;
 
-class NotQuery
+class NotQuery:public Query_base
 {
     friend Query operator~(const Query&);
     

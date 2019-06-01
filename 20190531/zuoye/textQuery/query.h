@@ -35,7 +35,7 @@ private:
 
 ostream &operator<<(ostream &os,const Query &query);
 inline Query::Query(const string &s)
-:q(new WordQuer(s))
+:q(new WordQuery(s))
 {}
 
 #endif
