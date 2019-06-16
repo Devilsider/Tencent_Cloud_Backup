@@ -102,7 +102,22 @@ void DictProducer::build_dict()
 
 void DictProducer::store_dict(const char * filepath)
 {
-    cout<<"store_dict"<<endl;
+    //将统计好的单词存入磁盘中
+    string DictFile(filepath);
+    DictFile.append("Dictionary");
+    //新建立词典文件 
+    open(DictFile.c_str(),O_RDWR|O_CREAT,0666);
+    ofstream ofs(DictFile);
+    if(!ofs.is_open())
+    {
+        cout<<" open file "<<DictFile<<" error"<<endl;
+        return;
+    }
+    for(auto &i:_dict)
+    {
+        ofs<<i.first<<" "<<i.second<<endl;
+    }
+    ofs.close();
 }
 
 void DictProducer::show_files()const 
@@ -133,6 +148,7 @@ void DictProducer::get_files()
 
 void DictProducer::push_dict(const string &word)
 {
+    //用来干嘛的？
     cout<<"push_dict"<<endl;
 }
 
