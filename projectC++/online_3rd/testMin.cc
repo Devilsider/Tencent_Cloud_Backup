@@ -6,8 +6,8 @@ int main()
 {
     wd::MinEditDistance minEdit; 
 
-    string s1("ace");
-    string s2("abcdef");
+    string s1("horse");
+    string s2("ros");
 
     int ret= minEdit.editDistance(s1,s2);
 

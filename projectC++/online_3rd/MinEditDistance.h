@@ -22,6 +22,7 @@ public:
         //初始化二维数组，用于存储动态规划中的中间数值
         int len1=(int)s1.size();
         int len2=(int)s2.size();
+        
         vector<vector<int>> martix(len1+1,vector<int>(len2+1,0));
         for(int j=0;j<len2+1;++j)
         {
@@ -36,7 +37,7 @@ public:
             for(int j=1;j<len2+1;++j)
             {
                     int f;
-                    f = (s1[i]==s2[j])?0:1;
+                    f = (s1[i-1]==s2[j-1])?0:1;
                     martix[i][j]=minOfThree(martix[i-1][j]+1,martix[i][j-1]+1,martix[i-1][j-1]+f);
             }
         }
