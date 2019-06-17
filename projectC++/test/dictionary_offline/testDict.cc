@@ -2,6 +2,8 @@
 #include "/home/ubuntu/projectC++/include/DictProducer.h"
 #include "/home/ubuntu/projectC++/include/SplitTool.h"
 #include <iostream>
+using std::cout;
+using std::endl;
 
 int main()
 {
@@ -12,10 +14,19 @@ int main()
     /* dic.show_dict(); */
     dic.store_dict("/home/ubuntu/projectC++/data/");
 
-    wd::IndexProducer index("/home/ubuntu/projectC++/data/Dictionary");
-    index.init();
-    index.showDict();
-    index.showIndex();
+    wd::IndexProducer * pindex=wd::IndexProducer::getInstance("ss");
+    pindex->init();
+    pindex->showDict();
+    pindex->showIndex();
+
+    for(auto i:*pindex->getDict())
+    {
+        cout<<"word: "<<i.first<<" frequency:  "<<i.second<<endl;
+    }
+    for(auto i:*pindex->getIndex())
+    {
+        cout<<" "<<i.first<<endl;
+    }
     return 0;
 }
 

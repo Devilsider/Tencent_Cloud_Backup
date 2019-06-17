@@ -17,10 +17,10 @@ using std::set;
 namespace  wd
 {
 
-class Task
+class MyTask
 {
 public:
-    Task(const string &msg,
+    MyTask(const string &msg,
          const TcpConnectionPtr &conn
          );
 

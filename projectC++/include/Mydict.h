@@ -1,5 +1,5 @@
 #pragma once
-#include "/home/ubuntu/projectC++/include/BitMap.h"
+#include "BitMap.h"
 
 #include <stdio.h>
 #include <pthread.h>

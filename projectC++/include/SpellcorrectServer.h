@@ -11,15 +11,14 @@ namespace wd
 class SpellcorrectServer
 {
 public:
-    using TcpConnectionPtr = std::shared_ptr<TcpConnection>;
-    using TcpConnectionCallback = std::function<void(const TcpConnectionPtr&)>;
-    using Functor = std::function<void()>;
     
-    SpellcorrectServer()
-    :_tcpServer("172.16.0.15",8888),
-    _threadPool(4,10),
-    _indexProducer("/home/ubuntu/projectC++/data/Dictionary")
+    SpellcorrectServer(const string &ip,unsigned short port,size_t threadnum
+                       ,size_t quesize)
+    :_tcpServer(ip,port),
+    _threadPool(threadnum,quesize)
     {}
+
+    
 
     void start();
     void onConnection(const TcpConnectionPtr &conn);
@@ -30,7 +29,6 @@ public:
 private:
     TcpServer _tcpServer;
     Threadpool _threadPool;
-    IndexProducer _indexProducer;
 };
 
 }

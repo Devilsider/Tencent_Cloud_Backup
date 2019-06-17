@@ -15,6 +15,7 @@ using std::distance;
 namespace wd
 {
 IndexProducer * IndexProducer::_pInstance=IndexProducer::getInstance("/home/ubuntu/projectC++/data/Dictionary");
+
 void IndexProducer::read()
 {
     ifstream ifs(_dictFilename);
