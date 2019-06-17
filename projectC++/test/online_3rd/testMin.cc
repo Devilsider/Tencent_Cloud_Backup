@@ -1,4 +1,4 @@
-#include "MinEditDistance.h"
+#include "/home/ubuntu/projectC++/include/MinEditDistance.h"
 #include <iostream>
 
 

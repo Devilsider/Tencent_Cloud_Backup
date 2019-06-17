@@ -5,7 +5,7 @@
  ///
  
 
-#include "Thread.h"
+#include "/home/ubuntu/projectC++/include/Thread.h"
 
 #include <stdio.h>
 #include <errno.h>

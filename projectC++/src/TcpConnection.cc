@@ -5,9 +5,9 @@
  ///
  
 
-#include "TcpConnection.h"
-#include "InetAddress.h"
-#include "EventLoop.h"
+#include "/home/ubuntu/projectC++/include/TcpConnection.h"
+#include "/home/ubuntu/projectC++/include/InetAddress.h"
+#include "/home/ubuntu/projectC++/include/EventLoop.h"
 
 #include <errno.h>
 #include <stdlib.h>

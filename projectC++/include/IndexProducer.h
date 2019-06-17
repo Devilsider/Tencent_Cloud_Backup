@@ -44,6 +44,11 @@ public:
     {
         return & _bitmap;
     }
+    vector<std::pair<string,int>> *getDict()
+    {
+        return &_dict;
+    }
+    
 
     void read();//将dict词典内容读到_dict中
     void createIndex();//生成a~z的索引的单词
