@@ -4,8 +4,8 @@
  /// @date    2019-04-15 15:06:07
  ///
  
-#include "/home/ubuntu/projectC++/include/Condition.h"
-#include "/home/ubuntu/projectC++/include/MutexLock.h"  //在Condtion的实现文件里面加载MutexLock的头文件
+#include "Condition.h"
+#include "MutexLock.h"  //在Condtion的实现文件里面加载MutexLock的头文件
 
 #include <stdio.h>
 #include <errno.h>

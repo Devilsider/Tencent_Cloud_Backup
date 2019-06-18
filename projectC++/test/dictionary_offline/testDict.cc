@@ -1,9 +1,18 @@
 #include "/home/ubuntu/projectC++/include/IndexProducer.h"
 #include "/home/ubuntu/projectC++/include/DictProducer.h"
 #include "/home/ubuntu/projectC++/include/SplitTool.h"
+#include "/home/ubuntu/projectC++/include/MinEditDistance.h"
+#include "/home/ubuntu/projectC++/include/MyResult.h"
+
 #include <iostream>
+#include <queue>
+#include <string>
+#include <sstream>
 using std::cout;
 using std::endl;
+using std::string;
+using std::priority_queue;
+using std::stringstream;
 
 int main()
 {
@@ -19,14 +28,59 @@ int main()
     pindex->showDict();
     pindex->showIndex();
 
-    for(auto i:*pindex->getDict())
+    /* for(auto i:pindex->getDict()) */
+    /* { */
+    /*     cout<<"word: "<<i.first<<" frequency:  "<<i.second<<endl; */
+    /* } */
+    /* for(auto i:pindex->getIndex()) */
+    /* { */
+    /*     cout<<" "<<i.first<<endl; */
+    /* } */
+    string word("hello");
+    priority_queue<wd::MyResult> que;
+    wd::MinEditDistance mined;
+    auto index=pindex->getIndex();
+    auto dict=pindex->getDict();
+    string tmp;
+    stringstream ss;
+    for(auto &ch:word)
     {
-        cout<<"word: "<<i.first<<" frequency:  "<<i.second<<endl;
+        tmp.clear();
+        tmp="";
+        ss.clear();
+        ss.str("");
+        ss<<ch;
+        tmp=ss.str();
+
+        auto indexSet = index[tmp];
+        for(auto &idx:indexSet)
+        {
+            if(!pindex->getBitMap().test(idx))
+            {
+                int dist = mined.editDistance(word,dict[idx].first);
+                wd::MyResult *pnode = new wd::MyResult();
+                pnode->_iDist=dist;
+                pnode->_iFeq=dict[idx].second;
+                pnode->_word=dict[idx].first;
+
+                que.push(*pnode);
+                pindex->getBitMap().set(idx);
+            }
+        }
+
+        
     }
-    for(auto i:*pindex->getIndex())
+    while(que.size()!=0)
     {
-        cout<<" "<<i.first<<endl;
+        cout<<"{word:"<<que.top()._word
+            <<",dist:"<<que.top()._iDist
+            <<",freq:"<<que.top()._iFeq<<"}"<<endl;
+        que.pop();
     }
+
+    
     return 0;
 }
+
+
 

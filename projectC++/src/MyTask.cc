@@ -3,6 +3,8 @@
 #include <sstream>
 #include <iostream>
 using std::stringstream;
+using std::cout;
+using std::endl;
 
 namespace  wd
 {
@@ -58,15 +60,29 @@ void MyTask::process()
     //3.设置优先级队列的比较条件，按照
     //编辑距离来比较，若编辑距离相等，则按照频次来比较，
     //频次高的在前面
-    //4.取前k个单词，并将其封装成jason文件，memcpy给msg，再
+    //4.取前k个单词，并将其封装成jason文件，memcpy给ms，再
     //使用sendLoop(msg),延缓到IO线程发送
     IndexProducer * _pindex=IndexProducer::getInstance("whatever");//单例对象输入啥都行
+
+    cout<<" _pindex = "<<_pindex<<endl;
     stringstream ss;
     string tmp;
-
-    unordered_map<string,set<int>>& index = _pindex->getIndex();
-    //process续写
-    //明天写完要，不是时间不够
+    
+    vector<std::pair<string,int>> &dict = _pindex->getDict();
+    unordered_map<string,set<int>> &index = _pindex->getIndex();
+    BitMap myBitMap(10000);
+    cout<<" index.size()"<<index.size();
+    /* cout<<"--------index-----------"<<index.size()<<endl; */
+    /* for(auto &i:index){ */
+    /*     cout<<i.first<<":"; */
+    /*     for(auto &c:i.second){ */
+    /*         cout<<c<<" "; */
+    /*     } */
+    /*     cout<<endl; */
+    /* } */
+    
+    /* cout<<"--------index-----------"<<index.size()<<endl; */
+    cout<<"_query= "<<_query<<endl;
     for(auto &ch:_query)
     {
         //ch转换成string
@@ -76,14 +92,37 @@ void MyTask::process()
         tmp="";
         ss<<ch;
         tmp=ss.str();
-        
-        
-        auto i= _pindex->getDict()[0];
+        /* cout<<" ch  = "<<tmp<<endl; */
+        auto indexSet = index[tmp];
+        /* for(auto &i:indexSet) */
+        /* { */
+        /*     cout<<" "<<i<<endl; */
+        /* } */
+        for(auto &idx:indexSet)
+        {
+            //使用BitMap去重
+            if(!myBitMap.test(idx))
+            {   //未计算
+                int dist = calcDistance(dict[idx].first);
+                MyResult *pnode = new MyResult();
+                pnode->_iDist=dist;
+                pnode->_iFeq=dict[idx].second;
+                pnode->_word=dict[idx].first;
 
+                _que.push(*pnode);
+                //计算该位后将其置为1
+                myBitMap.set(idx);
+            }
 
-
+        }
 
     }
+    cout<<" que.size() =  " <<_que.size()<<endl;
+    /* cout<<"1111"<<endl; */
+    string res(_que.top()._word);
+    /* cout<<"2222"<<endl; */
+    cout<<" the best match is : "<<res<<endl;
+    _conn->sendInLoop(res);
 }
 
 }//end of wd

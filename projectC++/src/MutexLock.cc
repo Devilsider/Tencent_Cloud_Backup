@@ -4,7 +4,7 @@
  /// @date    2019-04-15 14:47:10
  ///
  
-#include "/home/ubuntu/projectC++/include/MutexLock.h"
+#include "MutexLock.h"
 
 #include <stdio.h>
 #include <errno.h>

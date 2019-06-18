@@ -1,4 +1,4 @@
-#include "/home/ubuntu/projectC++/include/IndexProducer.h"
+#include "IndexProducer.h"
 
 #include <iterator>
 #include <iostream>
@@ -15,6 +15,7 @@ using std::distance;
 namespace wd
 {
 IndexProducer * IndexProducer::_pInstance=IndexProducer::getInstance("/home/ubuntu/projectC++/data/Dictionary");
+
 void IndexProducer::read()
 {
     ifstream ifs(_dictFilename);

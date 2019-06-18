@@ -1,5 +1,6 @@
 #pragma once
 #include "TcpConnection.h"
+#include "BitMap.h"
 #include "IndexProducer.h"
 #include "MyResult.h"
 

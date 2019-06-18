@@ -4,7 +4,7 @@
  /// @date    2019-05-07 15:02:04
  ///
 
-#include "/home/ubuntu/projectC++/include/InetAddress.h"
+#include "InetAddress.h"
 
 #include <string.h>
 

@@ -12,16 +12,16 @@ struct MyResult
     friend bool operator <(MyResult m1,MyResult m2)
     {
         if(m1._iDist<m2._iDist){
-            return true;
+            return false;
         }
         else if(m1._iDist==m2._iDist)
         {
             if(m1._iFeq>m2._iFeq){
-                return true;
+                return false;
             }
-            return false;
+            return true;
         }
-        return false;
+        return true;
     }
 };
 

@@ -5,7 +5,7 @@
  ///
  
 
-#include "/home/ubuntu/projectC++/include/Socket.h"
+#include "Socket.h"
 
 #include <unistd.h>
 #include <stdio.h>

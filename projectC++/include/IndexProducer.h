@@ -1,6 +1,5 @@
 #pragma once
 #include "DictProducer.h"
-#include "BitMap.h"
 
 #include <iostream>
 #include <unordered_map>
@@ -11,6 +10,8 @@ using std::vector;
 using std::unordered_map;
 using std::set;
 using std::stringstream;
+using std::cout;
+using std::endl;
 
 namespace wd
 {
@@ -40,10 +41,6 @@ public:
     {
         return _index;
     }
-    BitMap & getBitMap() 
-    {
-        return  _bitmap;
-    }
     vector<std::pair<string,int>> &getDict()
     {
         return _dict;
@@ -57,9 +54,9 @@ public:
     void showIndex();//测试用
 private:    
     IndexProducer(const string &dictfilename)
-    :_dictFilename(dictfilename),
-    _bitmap(10000)
+    :_dictFilename(dictfilename)
     {
+        _dictFilename=dictfilename;
         set<int> temp;
         //初始换索引unordered_map
         for(int idx=97;idx<123;++idx) 
@@ -74,11 +71,13 @@ private:
         }
         
     }
+    ~IndexProducer(){
+        cout<<"~IndexProducer"<<endl;
+    }
 private:
     string _dictFilename;//dict词典的绝对路径
     vector<std::pair<string,int>>  _dict;//将词典内容读出来读到vector中
     unordered_map<string,set<int>> _index;//存放a~z的索引的单词
-    BitMap _bitmap;//使用位图去除冗余数据
     static IndexProducer* _pInstance;
 };
 

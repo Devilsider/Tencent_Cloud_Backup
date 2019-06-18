@@ -3,9 +3,9 @@
  /// @author  lemon(haohb13@gmail.com)
  /// @date    2019-05-08 11:06:33
  ///
-#include "/home/ubuntu/projectC++/include/EventLoop.h" 
-#include "/home/ubuntu/projectC++/include/Acceptor.h"
-#include "/home/ubuntu/projectC++/include/TcpConnection.h"
+#include "EventLoop.h" 
+#include "Acceptor.h"
+#include "TcpConnection.h"
 
 #include <unistd.h>
 #include <assert.h>

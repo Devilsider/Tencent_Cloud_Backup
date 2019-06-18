@@ -4,8 +4,8 @@
  /// @date    2019-05-06 11:32:31
  ///
  
-#include "/home/ubuntu/projectC++/include/Threadpool.h"
-#include "/home/ubuntu/projectC++/include/Thread.h"
+#include "Threadpool.h"
+#include "Thread.h"
 
 #include <unistd.h>
 

@@ -4,7 +4,7 @@
  /// @date    2019-05-08 15:07:04
  ///
  
-#include "/home/ubuntu/projectC++/include/TcpServer.h"
+#include "TcpServer.h"
 
 namespace wd
 {
