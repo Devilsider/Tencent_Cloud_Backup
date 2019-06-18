@@ -9,6 +9,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <cctype>
 using std::cout;
 using std::endl;
 using std::ifstream;
@@ -65,6 +66,10 @@ void DictProducer::build_dict()
                     c=tolower(c);
                 }
                 if(ispunct(c))
+                {
+                    c=' ';
+                }
+                if(isdigit(c))
                 {
                     c=' ';
                 }

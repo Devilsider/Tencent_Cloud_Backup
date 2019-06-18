@@ -1,4 +1,5 @@
 #include "MyTask.h"
+#include "MyDict.h"
 
 #include <sstream>
 #include <iostream>
@@ -11,7 +12,19 @@ namespace  wd
 MyTask::MyTask(const string &msg,const TcpConnectionPtr &conn)
 :_query(msg)
 ,_conn(conn)
-{}
+    {
+        string tmp("");
+        int len=(int )_query.size();
+        for(int i=0;i<len;++i)
+        {
+            //对_query进行处理，只将字母取出
+            if(isalpha(_query[i]))
+            {
+                tmp+=_query[i];
+            }
+        }
+        _query=tmp;
+    }
 
 int MyTask::calcDistance(string &rhs)
 {
@@ -21,16 +34,21 @@ int MyTask::calcDistance(string &rhs)
 
         int len1=(int)s1.size();
         int len2=(int)s2.size();
-
+        cout<<"c1"<<endl;
+        cout<<"len1="<<len1<<endl;
+        cout<<"len2="<<len2<<endl;
         vector<vector<int>> martix(len1+1,vector<int>(len2+1,0));
+        cout<<"cend"<<endl;
         for(int j=0;j<len2+1;++j)
         {
             martix[0][j]=j;
         }
+        cout<<"c2"<<endl;
         for(int i=0;i<len1+1;++i)
         {
             martix[i][0]=i;
         }
+        cout<<"c3"<<endl;
         for(int i=1;i<len1+1;++i)
         {
             for(int j=1;j<len2+1;++j)
@@ -40,7 +58,13 @@ int MyTask::calcDistance(string &rhs)
                     martix[i][j]=minOfThree(martix[i-1][j]+1,martix[i][j-1]+1,martix[i-1][j-1]+f);
             }
         }
-        return martix[len1][len2];
+        cout<<"c4"<<endl;
+        int res=martix[len1][len2];
+        
+        martix.clear();
+        martix.shrink_to_fit();
+
+        return res;
 }
 
 int MyTask::minOfThree(int t1,int t2,int t3)
@@ -67,26 +91,44 @@ void MyTask::process()
     stringstream ss;
     string tmp;
     
-    vector<std::pair<string,int>> &dict = _pindex->getDict();
-    unordered_map<string,set<int>> &index = _pindex->getIndex();
+    MyDict *mydict=MyDict::getInstance();
+    vector<std::pair<string,int>> &dict = mydict->getDict();
+    unordered_map<string,set<int>> &index = mydict->getIndex();
     BitMap myBitMap(10000);
     cout<<" dict.size()= " <<dict.size()<<endl;
     cout<<" index.size()= "<<index.size()<<endl;
     
-    for(auto &i:index)
-    {
-        cout<<i.first<<": ";
-        for(auto &j:i.second)
-        {
-            cout<<j<<" ";
-        }
-        cout<<endl;
-    }
+    /* for(auto i=index.begin();i!=index.end();++i) */
+    /* { */
+    /*     cout<<i->first<<": "; */
+    /*     for(auto &j:i->second) */
+    /*     { */
+    /*         cout<<j<<" "; */
+    /*     } */
+    /*     cout<<endl; */
+    /* } */
+    /* string realQuery(""); */
+    /* cout<<_query<<"|"<<endl; */
+    int len=(int)_query.size();
 
-    cout<<"_query= "<<_query<<endl;
+    /* for(int i=0;i<len;++i) */
+    /* { */
+    /*     //对_query进行处理，只将字母取出 */
+    /*     if(isalpha(_query[i])) */
+    /*     { */
+    /*         realQuery+=_query[i]; */
+    /*     } */
+    /* } */
+    /* cout<<realQuery<<"|"<<endl; */
 
-    for(auto &ch:_query)
+    /* int len2=(int)realQuery.size(); */
+    for(int i=0;i<len;++i)
     {
+        char ch=_query[i];
+        /* if(!isalpha(ch)) */
+        /* { */
+        /*     continue; */
+        /* } */
         //ch转换成string
         ss.clear();
         ss.str("");
@@ -113,28 +155,31 @@ void MyTask::process()
         /*     ++count; */
         /* } */
         /* exit(0); */
-        for(auto &idx:indexSet->second)
+        /* cout<<"dict[10055] ="<<dict[10055].first<<", freq="<<dict[10055].second<<endl; */
+        for( auto iter=indexSet->second.begin();iter!=indexSet->second.end();++iter)
         {
-            /* cout<<"4"<<endl; */
-            cout<<" idx = "<<idx<<endl;
+            cout<<"*iter="<<*iter<<endl;
+            cout<<"4"<<endl;
             /* cout<<" count = "<<count<<endl; */
             /* ++count; */
             //使用BitMap去重
-            if(!myBitMap.test(idx))
+            if(!myBitMap.test(*iter))
             {   //未计算
-                /* cout<<"5"<<endl; */
-                int dist = calcDistance(dict[idx].first);
+                cout<<"5"<<endl;
+                cout<<dict[*iter].first<<endl;
+                int dist = calcDistance(dict[*iter].first);
+                cout<<"6" <<endl;
                 MyResult node ;
                 node._iDist=dist;
-                node._iFeq=dict[idx].second;
-                node._word=dict[idx].first;
-
+                node._iFeq=dict[*iter].second;
+                node._word=dict[*iter].first;
+                cout<<"7"<<endl;
                 /* cout<<"count =  "<<count<<", word = "<<node._word */
                 /*     <<",dist = "<<node._iDist<<",freq= "<<node._iFeq<<endl; */
                 /* ++count; */
                 _que.push(node);
                 //计算该位后将其置为1
-                myBitMap.set(idx);
+                myBitMap.set(*iter);
             }
             cout<<" count = "<<count<<endl;
             ++count;

@@ -111,6 +111,7 @@ int main(void)
     //建立索引表
     wd::IndexProducer index("/home/ubuntu/projectC++/dict/Dictionary");//随意填，单例对象
     index.init();
+    index.store("/home/ubuntu/projectC++/dict/");
 
     wd::MyDict *mydict=wd::MyDict::getInstance();
     mydict->init("/home/ubuntu/projectC++/dict/");
