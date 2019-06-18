@@ -5,6 +5,7 @@
  ///
  
 #include "SpellcorrectServer.h"
+#include "MyDict.h"
 
 #include <unistd.h>
 #include <stdio.h>
@@ -106,10 +107,13 @@ int main(void)
     string yuliaoPath("/home/ubuntu/projectC++/data");
     wd::DictProducer dict(yuliaoPath);
     dict.build_dict();
-    dict.store_dict("/home/ubuntu/projectC++/data/");
+    dict.store_dict("/home/ubuntu/projectC++/dict/");
     //建立索引表
-    wd::IndexProducer *pindex = wd::IndexProducer::getInstance("whatever");//随意填，单例对象
-    pindex->init();
+    wd::IndexProducer index("/home/ubuntu/projectC++/dict/Dictionary");//随意填，单例对象
+    index.init();
+
+    wd::MyDict *mydict=wd::MyDict::getInstance();
+    mydict->init("/home/ubuntu/projectC++/dict/");
 
     //在线部分
     wd::SpellcorrectServer spcoServer("172.16.0.15",8888,4,10);

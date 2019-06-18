@@ -62,27 +62,29 @@ void MyTask::process()
     //频次高的在前面
     //4.取前k个单词，并将其封装成jason文件，memcpy给ms，再
     //使用sendLoop(msg),延缓到IO线程发送
-    IndexProducer * _pindex=IndexProducer::getInstance("whatever");//单例对象输入啥都行
 
-    cout<<" _pindex = "<<_pindex<<endl;
+    /* cout<<" _pindex = "<<_pindex<<endl; */
     stringstream ss;
     string tmp;
     
     vector<std::pair<string,int>> &dict = _pindex->getDict();
     unordered_map<string,set<int>> &index = _pindex->getIndex();
     BitMap myBitMap(10000);
-    cout<<" index.size()"<<index.size();
-    /* cout<<"--------index-----------"<<index.size()<<endl; */
-    /* for(auto &i:index){ */
-    /*     cout<<i.first<<":"; */
-    /*     for(auto &c:i.second){ */
-    /*         cout<<c<<" "; */
-    /*     } */
-    /*     cout<<endl; */
-    /* } */
+    cout<<" dict.size()= " <<dict.size()<<endl;
+    cout<<" index.size()= "<<index.size()<<endl;
     
-    /* cout<<"--------index-----------"<<index.size()<<endl; */
+    for(auto &i:index)
+    {
+        cout<<i.first<<": ";
+        for(auto &j:i.second)
+        {
+            cout<<j<<" ";
+        }
+        cout<<endl;
+    }
+
     cout<<"_query= "<<_query<<endl;
+
     for(auto &ch:_query)
     {
         //ch转换成string
@@ -93,34 +95,60 @@ void MyTask::process()
         ss<<ch;
         tmp=ss.str();
         /* cout<<" ch  = "<<tmp<<endl; */
-        auto indexSet = index[tmp];
+        auto indexSet = index.find(tmp);
+        if(indexSet==index.end()){
+            cout<<"11"<<endl;
+            return;
+        }
         /* for(auto &i:indexSet) */
         /* { */
         /*     cout<<" "<<i<<endl; */
         /* } */
-        for(auto &idx:indexSet)
+        int count=0;
+        /* for(auto &n:indexSet) */
+        /* { */
+        /*     /1* if(n>100000){ *1/ */
+        /*      cout<<"count=  "<<count<<" n = "<<n<<endl; */
+        /*      /1* } *1/ */
+        /*     ++count; */
+        /* } */
+        /* exit(0); */
+        for(auto &idx:indexSet->second)
         {
+            /* cout<<"4"<<endl; */
+            cout<<" idx = "<<idx<<endl;
+            /* cout<<" count = "<<count<<endl; */
+            /* ++count; */
             //使用BitMap去重
             if(!myBitMap.test(idx))
             {   //未计算
+                /* cout<<"5"<<endl; */
                 int dist = calcDistance(dict[idx].first);
-                MyResult *pnode = new MyResult();
-                pnode->_iDist=dist;
-                pnode->_iFeq=dict[idx].second;
-                pnode->_word=dict[idx].first;
+                MyResult node ;
+                node._iDist=dist;
+                node._iFeq=dict[idx].second;
+                node._word=dict[idx].first;
 
-                _que.push(*pnode);
+                /* cout<<"count =  "<<count<<", word = "<<node._word */
+                /*     <<",dist = "<<node._iDist<<",freq= "<<node._iFeq<<endl; */
+                /* ++count; */
+                _que.push(node);
                 //计算该位后将其置为1
                 myBitMap.set(idx);
             }
-
+            cout<<" count = "<<count<<endl;
+            ++count;
         }
 
     }
+    cout<<"---------------------"<<endl;
+    cout<<" dict.size()= " <<dict.size()<<endl;
+    cout<<" index.size()= "<<index.size()<<endl;
+    
     cout<<" que.size() =  " <<_que.size()<<endl;
-    /* cout<<"1111"<<endl; */
+    cout<<"1111"<<endl;
     string res(_que.top()._word);
-    /* cout<<"2222"<<endl; */
+    cout<<"2222"<<endl;
     cout<<" the best match is : "<<res<<endl;
     _conn->sendInLoop(res);
 }

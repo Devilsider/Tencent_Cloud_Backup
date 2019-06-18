@@ -1,5 +1,9 @@
 #include "IndexProducer.h"
 
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/fcntl.h>
+
 #include <iterator>
 #include <iostream>
 #include <fstream>
@@ -14,7 +18,7 @@ using std::distance;
 
 namespace wd
 {
-IndexProducer * IndexProducer::_pInstance=IndexProducer::getInstance("/home/ubuntu/projectC++/data/Dictionary");
+/* IndexProducer * IndexProducer::_pInstance=IndexProducer::getInstance("/home/ubuntu/projectC++/data/Dictionary"); */
 
 void IndexProducer::read()
 {
@@ -69,6 +73,31 @@ void IndexProducer::createIndex()
     }
 }
 
+void IndexProducer::store(const char *filepath)
+{
+    //存储到data文件夹里面，文件名字为Index
+    string indexFile(filepath);
+    indexFile.append("Index");
+    //新建立索引文件
+    open(indexFile.c_str(),O_RDWR|O_CREAT,0666);
+    ofstream ofs(indexFile);
+    if(!ofs.is_open())
+    {
+        //是否正确打开
+        cout<<" open file "<<indexFile<<" error"<<endl;
+        return ;
+    }
+    for(auto &i:_index)
+    {
+        //按照格式 索引字母  下标1 下标2 下标3 下标4 ...... 格式排列
+        ofs<<i.first<<" ";
+        for(auto &c:i.second){
+            ofs<<c<<" ";
+        }
+        ofs<<endl;
+    }
+    ofs.close();
+}
 void IndexProducer::init()
 {
     read();
