@@ -8,6 +8,11 @@
 using std::string;
 using std::unordered_map;
 using std::vector;
+const char * const DICT_PATH = "./dict/jieba.dict.utf8";
+const char * const HMM_PATH = "./dict/hmm_model.utf8";
+const char * const USER_DICT_PATH = "./dict/user.dict.utf8";
+const char * const IDF_PATH = "./dict/idf.utf8";
+const char * const STOP_WORD_PATH = "./dict/stop_words.utf8";
 
 namespace wd
 {
@@ -19,8 +24,8 @@ public:
     /* DictProducer(const string &dir,SplitTool *splitTool);//构造函数，专为处理中文 ,过后再实现*/
     void build_dict();//创建英文字典
     void build_cn_dict();//创建中文字典 */
-    void store_dict(const char * filepath);//将词典写入文件
-    void store_cn_dict(const char *filepath);//将中文词典写入文件
+    void initChPath();//初始化cppjieba需要使用的词典路径
+    void store_dict(const string &);//写入文件
     void show_files()const;//查看文件路径，作为测试用
     void show_dict()const ;//查看英文词典，测试用
 private:

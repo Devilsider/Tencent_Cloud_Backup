@@ -1,4 +1,5 @@
-#include "/home/ubuntu/projectC++/include/DictProducer.h"
+#include "DictProducer.h"
+#include "Jieba.hpp"
 
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -126,11 +127,10 @@ void DictProducer::build_dict()
     }
 }
 
-void DictProducer::store_dict(const char * filepath)
+void DictProducer::store_dict(const string &filepath)
 {
     //将统计好的单词存入磁盘中
     string DictFile(filepath);
-    DictFile.append("Dictionary");
     //新建立词典文件 
     open(DictFile.c_str(),O_RDWR|O_CREAT,0666);
     ofstream ofs(DictFile);
@@ -149,6 +149,14 @@ void DictProducer::store_dict(const char * filepath)
 void DictProducer::build_cn_dict()
 {
     get_ch_files();
+    //初始化中文分词器
+    cppjieba::Jieba jieba(DICT_PATH,
+                          HMM_PATH,
+                          USER_DICT_PATH,
+                          IDF_PATH,
+                          STOP_WORD_PATH);
+
+    
     for(auto &file:_chFiles)
     {
         ifstream ifs(file);
@@ -162,8 +170,11 @@ void DictProducer::build_cn_dict()
             return;
         }
         string text;
+        vector<string> textCut;
         while(getline(ifs,text))
         {
+            text.clear();
+            text.shrink_to_fit();
             for(auto &c:text)
             {
                 if(ispunct(c))
@@ -175,7 +186,11 @@ void DictProducer::build_cn_dict()
                     c=' ';
                 }
             }
-            ofs<<text<<endl;
+            jieba.Cut(text,textCut,true);
+            for(auto &word:textCut)
+            {
+                ofs<<word<<endl;
+            }
         }
         ifs.close();
         ofs.close();
@@ -205,7 +220,6 @@ void DictProducer::build_cn_dict()
         remove(temp.c_str());
     }
 }
-
 void DictProducer::show_files()const 
 {
     for(auto &i:_enFiles){

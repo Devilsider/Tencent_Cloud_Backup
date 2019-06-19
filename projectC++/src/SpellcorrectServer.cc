@@ -22,9 +22,9 @@ void SpellcorrectServer::onMessage(const TcpConnectionPtr &conn)
     //decode,解封装
     //compute,提取出待查询单词
     //encode，封装好查到的信息
-    MyTask MyTask(msg,conn);
+    MyTask mytask(msg,conn);
 
-    _threadPool.addTask(std::bind(&MyTask::process,MyTask));
+    _threadPool.addTask(std::bind(&MyTask::process,mytask));
 }
 
 void SpellcorrectServer::onClose(const TcpConnectionPtr &conn)

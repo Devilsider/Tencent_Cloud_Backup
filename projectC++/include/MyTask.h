@@ -29,9 +29,10 @@ public:
     //然后将优先级队列中前k个单词作为结果封装成jason文件发回客户端，
     //延迟发送，在IO线程发送
     string encodeJson();//将结果封装成json字符串发送过去
-    int calcDistance(string &rhs);//计算编辑距离
+    int calcDistance(const string &rhs);//计算编辑距离
     int minOfThree(int t1,int t2,int t3);//辅助函数，求三个数中的最小值
-
+    
+    void clearQue();//清空优先级队列
 private:
     string _query;//带查询的单词'
     TcpConnectionPtr _conn;//conn->sendLoop(msg);延迟到IO线程传输

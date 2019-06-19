@@ -107,7 +107,7 @@ int main(void)
     string yuliaoPath("/home/ubuntu/projectC++/data");
     wd::DictProducer dict(yuliaoPath);
     dict.build_dict();
-    dict.store_dict("/home/ubuntu/projectC++/dict/");
+    dict.store_dict("/home/ubuntu/projectC++/dict/Dictionary");
     //建立索引表
     wd::IndexProducer index("/home/ubuntu/projectC++/dict/Dictionary");//随意填，单例对象
     index.init();

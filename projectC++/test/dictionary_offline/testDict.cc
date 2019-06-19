@@ -4,7 +4,7 @@
 #include "/home/ubuntu/projectC++/include/MinEditDistance.h"
 #include "/home/ubuntu/projectC++/include/MyResult.h"
 #include "/home/ubuntu/projectC++/include/MyDict.h"
-#include "Jieba.hpp" 
+#include "/home/ubuntu/projectC++/include/Jieba.hpp" 
 
 #include <json/json.h>
 #include <json/reader.h>
@@ -44,6 +44,17 @@ int main()
     mydict->showDict();
     mydict->showIndex();
 
+    cppjieba::Jieba jieba(
+        DICT_PATH,
+        HMM_PATH,
+        USER_DICT_PATH,
+        IDF_PATH,
+        STOP_WORD_PATH);
+
+    string s("你好世界我不好哈哈哈哈哈哈粉刺疤哈哈");
+    vector<string> words;
+    jieba.Cut(s,words,true);
+    cout<<limonp::Join(words.begin(),words.end(),"/")<<endl;
     //测试json文件
     Json::Value root;
     Json::Value arroyObj;
