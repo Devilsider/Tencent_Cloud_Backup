@@ -1,3 +1,11 @@
+#include <json/json.h>
+#include <json/reader.h>
+#include <json/value.h>
+#include <json/writer.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+
 #include "MyTask.h"
 #include "MyDict.h"
 
@@ -38,17 +46,26 @@ int MyTask::calcDistance(string &rhs)
         cout<<"len1="<<len1<<endl;
         cout<<"len2="<<len2<<endl;
         vector<vector<int>> martix(len1+1,vector<int>(len2+1,0));
-        cout<<"cend"<<endl;
+
+        /* int **martix = (int **)calloc(sizeof(int *),len1+1); */
+        /* for(int idx=0;idx<len1+1;++idx) */
+        /* { */
+        /*     martix[idx]=(int *)calloc(sizeof(int),len2+1); */
+        /* } */
+
+        /* cout<<"matrix size="<<martix.size()<<endl; */
+        /* cout<<"martix capacity="<<martix.capacity()<<endl; */
+        /* cout<<"cend"<<endl; */
         for(int j=0;j<len2+1;++j)
         {
             martix[0][j]=j;
         }
-        cout<<"c2"<<endl;
+        /* cout<<"c2"<<endl; */
         for(int i=0;i<len1+1;++i)
         {
             martix[i][0]=i;
         }
-        cout<<"c3"<<endl;
+        /* cout<<"c3"<<endl; */
         for(int i=1;i<len1+1;++i)
         {
             for(int j=1;j<len2+1;++j)
@@ -58,12 +75,20 @@ int MyTask::calcDistance(string &rhs)
                     martix[i][j]=minOfThree(martix[i-1][j]+1,martix[i][j-1]+1,martix[i-1][j-1]+f);
             }
         }
-        cout<<"c4"<<endl;
+        /* cout<<"c4"<<endl; */
         int res=martix[len1][len2];
+        /* cout<<"c5"<<endl; */
+        /* cout<<res<<endl; */
+        /* cout<<"matrix size="<<martix.size()<<endl; */
+        /* cout<<"martix capacity="<<martix.capacity()<<endl; */
+        /* martix.clear(); */
+        /* martix.shrink_to_fit(); */
         
-        martix.clear();
-        martix.shrink_to_fit();
-
+        /* for(int idx=0;idx<len1+1;++idx) */
+        /* { */
+        /*     free(martix[idx]); */
+        /* } */
+        /* free( martix); */
         return res;
 }
 
@@ -158,22 +183,24 @@ void MyTask::process()
         /* cout<<"dict[10055] ="<<dict[10055].first<<", freq="<<dict[10055].second<<endl; */
         for( auto iter=indexSet->second.begin();iter!=indexSet->second.end();++iter)
         {
-            cout<<"*iter="<<*iter<<endl;
-            cout<<"4"<<endl;
+            /* printf("*iter= %x\n",*iter); */
+            /* cout<<"*iter="<<*iter<<endl; */
+            /* cout<<"4"<<endl; */
             /* cout<<" count = "<<count<<endl; */
             /* ++count; */
             //使用BitMap去重
             if(!myBitMap.test(*iter))
             {   //未计算
-                cout<<"5"<<endl;
-                cout<<dict[*iter].first<<endl;
+                /* cout<<"5"<<endl; */
+               printf("%s\n",dict[*iter].first.c_str());
+                /* cout<<dict[*iter].first<<endl; */
                 int dist = calcDistance(dict[*iter].first);
-                cout<<"6" <<endl;
+                /* cout<<"6" <<endl; */
                 MyResult node ;
                 node._iDist=dist;
                 node._iFeq=dict[*iter].second;
                 node._word=dict[*iter].first;
-                cout<<"7"<<endl;
+                /* cout<<"7"<<endl; */
                 /* cout<<"count =  "<<count<<", word = "<<node._word */
                 /*     <<",dist = "<<node._iDist<<",freq= "<<node._iFeq<<endl; */
                 /* ++count; */
@@ -181,7 +208,7 @@ void MyTask::process()
                 //计算该位后将其置为1
                 myBitMap.set(*iter);
             }
-            cout<<" count = "<<count<<endl;
+            /* cout<<" count = "<<count<<endl; */
             ++count;
         }
 
@@ -192,11 +219,47 @@ void MyTask::process()
     
     cout<<" que.size() =  " <<_que.size()<<endl;
     cout<<"1111"<<endl;
-    string res(_que.top()._word);
+    string res = encodeJson();
+    /* if(_que.size()==0) */
+    /* { */
+    /*      res=" "; */
+    /* } */
+    /* else */ 
+    /* { */
+    /*     res=_que.top()._word; */
+    /* } */
     cout<<"2222"<<endl;
     cout<<" the best match is : "<<res<<endl;
     _conn->sendInLoop(res);
 }
+
+string MyTask::encodeJson()
+{
+    //返回前三个候选词
+    MyResult myres;
+    Json::Value root;
+    Json::Value item;
+    Json::Value array;
+    string tmp;
+    for(int idx=0;idx<3;++idx){
+        if(_que.size()==0)
+        {
+            return root.toStyledString();
+        }
+        myres=_que.top();
+        _que.pop();
+        tmp="res";
+        tmp.append(std::to_string(idx));
+        item["_word"]=myres._word;
+        item["_iDist"]=myres._iDist;
+        item["_iFeq"]=myres._iFeq;
+        array[tmp].append(item);
+    }
+    root.append(array);
+    return root.toStyledString();
+
+}
+
 
 }//end of wd
 

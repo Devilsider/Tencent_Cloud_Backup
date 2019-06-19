@@ -4,6 +4,12 @@
 #include "/home/ubuntu/projectC++/include/MinEditDistance.h"
 #include "/home/ubuntu/projectC++/include/MyResult.h"
 #include "/home/ubuntu/projectC++/include/MyDict.h"
+#include "Jieba.hpp" 
+
+#include <json/json.h>
+#include <json/reader.h>
+#include <json/value.h>
+#include <json/writer.h>
 
 #include <iostream>
 #include <queue>
@@ -14,12 +20,15 @@ using std::endl;
 using std::string;
 using std::priority_queue;
 using std::stringstream;
+using namespace Json;
+using namespace cppjieba;
 
 int main()
 {
     string test("/home/ubuntu/projectC++/data");
     wd::DictProducer dic(test);
     dic.build_dict();
+    dic.build_cn_dict();
     /* dic.show_files(); */
     /* dic.show_dict(); */
     dic.store_dict("/home/ubuntu/projectC++/dict/");
@@ -34,6 +43,46 @@ int main()
     mydict->init("/home/ubuntu/projectC++/dict/");
     mydict->showDict();
     mydict->showIndex();
+
+    //测试json文件
+    Json::Value root;
+    Json::Value arroyObj;
+    Json::Value item;
+    /* //创建一个对象 */
+    /* item["_word"] = "nihao"; */
+    /* item["_iDist"]=1; */
+    /* item["_iFeq"]=10; */
+    /* arroyObj["res1"].append(item); */
+    /* item["_word"] = "wobuhao"; */
+    /* item["_iDist"]=2; */
+    /* item["_iFeq"]=5; */
+    /* arroyObj["res2"].append(item); */
+    /* item["_word"] = "zenmele"; */
+    /* item["_iDist"]=4; */
+    /* item["_iFeq"]=59; */
+    /* arroyObj["res3"].append(item); */
+
+    /* root.append(arroyObj); */
+
+    /* root["strJson"]="jsonTest"; */
+    /* root["address"]="sea"; */
+    /* arroyObj.append(item);//item对象被作为值放入arrayObj中 */
+    /* root["array"]=arroyObj; */
+    //将json转换为字符串
+    /* root.toStyledString(); */
+    /* cout<<root<<endl; */
+    //getchar();
+    
+    /* Json::Value root1; */
+    /* Json::Reader reader; */
+    /* if(reader.parse(root.toStyledString(),root1)) */
+    /* { */
+    /*     cout<<root<<endl; */
+    /* } */
+
+    
+
+
     /* for(auto i:pindex->getDict()) */
     /* { */
     /*     cout<<"word: "<<i.first<<" frequency:  "<<i.second<<endl; */
