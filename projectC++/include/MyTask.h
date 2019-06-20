@@ -32,6 +32,10 @@ public:
     int calcDistance(const string &rhs);//计算编辑距离
     int minOfThree(int t1,int t2,int t3);//辅助函数，求三个数中的最小值
     
+    void searchInEn();//在英语队列中查找候选词
+    void searchInCN();//在中文队列中查找候选词
+
+
     void clearQue();//清空优先级队列
 
     void initQuery();//初始化查询单词

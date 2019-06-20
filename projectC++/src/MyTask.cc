@@ -97,15 +97,15 @@ void MyTask::process()
     //初始化字符串,去掉控制字符
     initQuery();
     
-    MyDict *mydict=MyDict::getInstance();
-    vector<std::pair<string,int>> &dict = mydict->getDict();
-    unordered_map<string,set<int>> &index = mydict->getIndex();
-    vector<std::pair<string,int>> &CNdict = mydict->getCNDict();
-    unordered_map<string,set<int>> &CNindex = mydict->getCNIndex();
+    /* MyDict *mydict=MyDict::getInstance(); */
+    /* vector<std::pair<string,int>> &dict = mydict->getDict(); */
+    /* unordered_map<string,set<int>> &index = mydict->getIndex(); */
+    /* vector<std::pair<string,int>> &CNdict = mydict->getCNDict(); */
+    /* unordered_map<string,set<int>> &CNindex = mydict->getCNIndex(); */
 
-    BitMap myBitMap(100000);
+    /* BitMap myBitMap(100000); */
     
-    int len=(int)_query.size();
+    /* int len=(int)_query.size(); */
     StringTrans st;
     string flag=_query;
     cout<<" "<<_query<<endl;
@@ -113,7 +113,99 @@ void MyTask::process()
     int len2=(int)tp.size();
     if(iswalpha(tp[0]))
     {//执行英文查询
-        for(int i=0;i<len;++i)
+        searchInEn();
+        /* for(int i=0;i<len;++i) */
+        /* { */
+        /*     stringstream ss; */
+        /*     string tmp; */
+        /*     char ch=_query[i]; */
+        /*     ss<<ch; */
+        /*     tmp=ss.str(); */
+        /*     auto indexSet = index.find(tmp); */
+        /*     if(indexSet==index.end()){ */
+        /*         string res = encodeJson(); */
+        /*         cout<<"query finish !"<<endl; */
+        /*         _conn->sendInLoop(res); */ 
+        /*         return; */
+        /*     } */
+            
+        /*     auto & sets = indexSet->second; */
+
+        /*     for(auto iter= sets.begin(); iter!=sets.end();++iter) */
+        /*     { */
+        /*         //使用BitMap去重 */
+        /*         if(!myBitMap.test(*iter)) */
+        /*         {   //未计算 */
+        /*             int dist = calcDistance(dict[*iter].first); */
+        /*             MyResult node ; */
+        /*             node._iDist=dist; */
+        /*             node._iFeq=dict[*iter].second; */
+        /*             node._word=dict[*iter].first; */
+        /*             if(dist<=3) */
+        /*             { */
+        /*                 _que.push(node); */
+        /*             } */
+        /*             myBitMap.set(*iter); */
+        /*         } */
+        /*     } */
+
+        /* } */
+    }
+    else
+    {//中文查询
+        searchInCN();
+        /* for(int i=0;i<len2;++i) */
+        /* { */
+        /*     wstring tmp; */
+        /*     tmp=tp.substr(i,1); */
+        /*     string key=st.WstrToStr(tmp); */
+        /*     auto indexSet = CNindex.find(key); */
+        /*     if(indexSet==CNindex.end()){ */
+        /*         string res = encodeJson(); */
+        /*         cout<<"query finish !"<<endl; */
+        /*         _conn->sendInLoop(res); */ 
+        /*         return; */
+        /*     } */
+            
+        /*     auto & sets = indexSet->second; */
+
+        /*     for(auto iter= sets.begin(); iter!=sets.end();++iter) */
+        /*     { */
+        /*         //使用BitMap去重 */
+        /*         if(!myBitMap.test(*iter)) */
+        /*         {   //未计算 */
+        /*             int dist = calcDistance(CNdict[*iter].first); */
+        /*             MyResult node ; */
+        /*             node._iDist=dist; */
+        /*             node._iFeq=CNdict[*iter].second; */
+        /*             node._word=CNdict[*iter].first; */
+        /*             if(dist<=3) */
+        /*             { */
+        /*                 _que.push(node); */
+        /*             } */
+        /*             myBitMap.set(*iter); */
+        /*         } */
+        /*     } */
+
+        /* } */
+    }
+    //_que存入缓存,待实现
+    
+    string res = encodeJson();
+    cout<<"query finish !"<<endl;
+    
+    _conn->sendInLoop(res); 
+}
+
+void MyTask::searchInEn()
+{
+    MyDict *mydict=MyDict::getInstance();
+    vector<std::pair<string,int>> &dict = mydict->getDict();
+    unordered_map<string,set<int>> &index = mydict->getIndex();
+    BitMap myBitMap(100000);
+    int len = (int)_query.size();
+
+    for(int i=0;i<len;++i)
         {
             stringstream ss;
             string tmp;
@@ -149,10 +241,21 @@ void MyTask::process()
             }
 
         }
-    }
-    else
-    {//中文查询
-        for(int i=0;i<len2;++i)
+}
+void MyTask::searchInCN()
+{
+    MyDict *mydict=MyDict::getInstance();
+    vector<std::pair<string,int>> &CNdict = mydict->getCNDict();
+    unordered_map<string,set<int>> &CNindex = mydict->getCNIndex();
+    BitMap myBitMap(100000);
+
+    StringTrans st;
+    string flag=_query;
+    cout<<" "<<_query<<endl;
+    wstring tp = st.strToWstr(flag);
+    int len=(int)tp.size();
+
+    for(int i=0;i<len;++i)
         {
             wstring tmp;
             tmp=tp.substr(i,1);
@@ -186,15 +289,7 @@ void MyTask::process()
             }
 
         }
-    }
-    //_que存入缓存,待实现
-    
-    string res = encodeJson();
-    cout<<"query finish !"<<endl;
-    
-    _conn->sendInLoop(res); 
 }
-
 string MyTask::encodeJson()
 {
     //返回前三个候选词
