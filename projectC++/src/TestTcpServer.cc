@@ -120,8 +120,6 @@ int main(void)
     wd::MyDict *mydict=wd::MyDict::getInstance();
     mydict->init("../dict/Dictionary","../dict/Index");
     mydict->initCN("../dict/CNDictionary","../dict/CNIndex");
-    
-    mydict->showCNDict();
     cout<<"------------offline finish------------------- !"<<endl;
     //在线部分
     wd::SpellcorrectServer spcoServer("172.16.0.15",8888,4,10);

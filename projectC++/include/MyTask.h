@@ -33,6 +33,8 @@ public:
     int minOfThree(int t1,int t2,int t3);//辅助函数，求三个数中的最小值
     
     void clearQue();//清空优先级队列
+
+    void initQuery();//初始化查询单词
 private:
     string _query;//带查询的单词'
     TcpConnectionPtr _conn;//conn->sendLoop(msg);延迟到IO线程传输
