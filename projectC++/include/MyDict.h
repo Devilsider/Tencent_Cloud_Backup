@@ -43,11 +43,22 @@ public:
     {
         return _dict;
     }
+    unordered_map<string,set<int>> &getCNIndex()
+    {
+        return _CNindex;
+    }
+    vector<std::pair<string,int>> &getCNDict()
+    {
+        return _CNdict;
+    }
 
 
-    void init(const string &filepath);//设置词典和索引的路径并且初始化他们
+    void init(const string &filepath,const string &filepath1);//设置词典和索引的路径并且初始化他们
+    void initCN(const string &filepath,const string &filepath1);//设置词典和索引的路径并且初始化他们
     void showDict();//测试用
     void showIndex();//测试用
+    void showCNDict();//测试用
+    void showCNIndex();//测试用
 private:
     MyDict()
     {}
@@ -56,6 +67,9 @@ private:
     string _filepath;
     vector<std::pair<string,int>> _dict;//从离线文件中将词典内容读出来到vector中
     unordered_map<string,set<int>> _index;//从离线文件中将索引内容读到index中
+    
+    vector<std::pair<string,int>> _CNdict;//从离线文件中将词典内容读出来到vector中
+    unordered_map<string,set<int>> _CNindex;//从离线文件中将索引内容读到index中
     static MyDict * _pInstance;
 };
 

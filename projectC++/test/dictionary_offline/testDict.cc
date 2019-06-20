@@ -22,27 +22,28 @@ using std::priority_queue;
 using std::stringstream;
 using namespace Json;
 using namespace cppjieba;
+using std::wstring;
 
 int main()
 {
-    string test("/home/ubuntu/projectC++/data");
-    wd::DictProducer dic(test);
-    dic.build_dict();
-    dic.build_cn_dict();
-    /* dic.show_files(); */
-    /* dic.show_dict(); */
-    dic.store_dict("/home/ubuntu/projectC++/dict/");
+    /* string test("/home/ubuntu/projectC++/data"); */
+    /* wd::DictProducer dic(test); */
+    /* dic.build_dict(); */
+    /* dic.build_cn_dict(); */
+    /* /1* dic.show_files(); *1/ */
+    /* /1* dic.show_dict(); *1/ */
+    /* dic.store_dict("/home/ubuntu/projectC++/dict/"); */
 
-    wd::IndexProducer index("/home/ubuntu/projectC++/dict/Dictionary");
-    index.init();
-    /* index.showDict(); */
-    /* index.showIndex(); */
-    index.store("/home/ubuntu/projectC++/dict/");
+    /* wd::IndexProducer index("/home/ubuntu/projectC++/dict/Dictionary"); */
+    /* index.init(); */
+    /* /1* index.showDict(); *1/ */
+    /* /1* index.showIndex(); *1/ */
+    /* index.store("/home/ubuntu/projectC++/dict/"); */
 
-    wd::MyDict * mydict=wd::MyDict::getInstance();
-    mydict->init("/home/ubuntu/projectC++/dict/");
-    mydict->showDict();
-    mydict->showIndex();
+    /* wd::MyDict * mydict=wd::MyDict::getInstance(); */
+    /* mydict->init("/home/ubuntu/projectC++/dict/"); */
+    /* /1* mydict->showDict(); *1/ */
+    /* /1* mydict->showIndex(); *1/ */
 
     cppjieba::Jieba jieba(
         DICT_PATH,
@@ -55,6 +56,14 @@ int main()
     vector<string> words;
     jieba.Cut(s,words,true);
     cout<<limonp::Join(words.begin(),words.end(),"/")<<endl;
+    
+    wstring s1=L"计划完成令计划的计划";
+    int len =(int) s1.size();
+    for(int idx=0;idx<len;++idx){
+        wcout<<s1.substr(0,1)<<endl;
+    }
+
+
     //测试json文件
     Json::Value root;
     Json::Value arroyObj;

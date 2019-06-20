@@ -104,18 +104,25 @@ int main(void)
 
     //离线部分
     //建立词典
-    string yuliaoPath("/home/ubuntu/projectC++/data");
+    string yuliaoPath("../data");
     wd::DictProducer dict(yuliaoPath);
     dict.build_dict();
-    dict.store_dict("/home/ubuntu/projectC++/dict/Dictionary");
+    dict.store_dict("../dict/Dictionary");
+    //建立中文词典
+    dict.build_cn_dict();
+    dict.store_dict("../dict/CNDictionary");
+
+
     //建立索引表
-    wd::IndexProducer index("/home/ubuntu/projectC++/dict/Dictionary");//随意填，单例对象
+    wd::IndexProducer index("../dict/Dictionary");
     index.init();
-    index.store("/home/ubuntu/projectC++/dict/");
-
+    
     wd::MyDict *mydict=wd::MyDict::getInstance();
-    mydict->init("/home/ubuntu/projectC++/dict/");
-
+    mydict->init("../dict/Dictionary","../dict/Index");
+    mydict->initCN("../dict/CNDictionary","../dict/CNIndex");
+    
+    mydict->showCNDict();
+    cout<<"------------offline finish------------------- !"<<endl;
     //在线部分
     wd::SpellcorrectServer spcoServer("172.16.0.15",8888,4,10);
     spcoServer.start();

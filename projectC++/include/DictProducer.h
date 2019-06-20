@@ -2,10 +2,12 @@
 #include "SplitTool.h"
 
 #include <string>
+#include <codecvt>
 #include <vector>
 #include <unordered_map>
 
 using std::string;
+using std::wstring;
 using std::unordered_map;
 using std::vector;
 const char * const DICT_PATH = "./dict/jieba.dict.utf8";
@@ -24,6 +26,8 @@ public:
     /* DictProducer(const string &dir,SplitTool *splitTool);//构造函数，专为处理中文 ,过后再实现*/
     void build_dict();//创建英文字典
     void build_cn_dict();//创建中文字典 */
+    /* wstring strToWstr(const string &);//将string转换成为wsting格式 */
+    /* string WstrToStr(const wstring &);//将wstring转换成为string格式。 */
     void initChPath();//初始化cppjieba需要使用的词典路径
     void store_dict(const string &);//写入文件
     void show_files()const;//查看文件路径，作为测试用

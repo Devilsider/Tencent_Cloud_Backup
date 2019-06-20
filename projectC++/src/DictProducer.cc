@@ -1,4 +1,6 @@
 #include "DictProducer.h"
+#include "StringTrans.h"
+
 #include "Jieba.hpp"
 
 #include <sys/stat.h>
@@ -9,6 +11,7 @@
 #include <dirent.h>
 
 #include <fstream>
+#include <locale>
 #include <iostream>
 using std::cout;
 using std::endl;
@@ -65,6 +68,7 @@ DictProducer::DictProducer(const string &dir)
 
 void DictProducer::build_dict()
 {
+    _dict.clear();
     get_en_files();
     for(auto &file:_enFiles)
     {
@@ -149,18 +153,20 @@ void DictProducer::store_dict(const string &filepath)
 void DictProducer::build_cn_dict()
 {
     get_ch_files();
+    _dict.clear();
     //初始化中文分词器
     cppjieba::Jieba jieba(DICT_PATH,
                           HMM_PATH,
                           USER_DICT_PATH,
                           IDF_PATH,
                           STOP_WORD_PATH);
-
+    std::locale loc("en_US.UTF-8");
     
     for(auto &file:_chFiles)
     {
         ifstream ifs(file);
         string temp(file);
+        StringTrans st;
         temp.append("_process");
         open(temp.c_str(),O_RDWR|O_CREAT,0666);
         ofstream ofs(temp);//处理后的文件,用完及时删除
@@ -170,25 +176,32 @@ void DictProducer::build_cn_dict()
             return;
         }
         string text;
+        cout<<" "<<text<<endl;
         vector<string> textCut;
         while(getline(ifs,text))
         {
-            text.clear();
-            text.shrink_to_fit();
-            for(auto &c:text)
-            {
-                if(ispunct(c))
-                {
-                    c=' ';
-                }
-                if(isdigit(c))
-                {
-                    c=' ';
-                }
-            }
+            textCut.clear();
+            textCut.shrink_to_fit();
             jieba.Cut(text,textCut,true);
+            /* cout<<limonp::Join(textCut.begin(),textCut.end(),"/")<<endl; */
             for(auto &word:textCut)
             {
+                string tmp(word);
+                wstring wtmp=st.strToWstr(tmp);
+                for(auto &c:wtmp)
+                {
+                    if(ispunct(c,loc)){
+                        c=' ';
+                    }
+                    if(iswdigit(c))
+                    {
+                        c=' ';
+                    }
+                    if(iswalpha(c)){
+                        c=' ';
+                    }
+                }
+                word=st.WstrToStr(wtmp);
                 ofs<<word<<endl;
             }
         }
@@ -220,6 +233,8 @@ void DictProducer::build_cn_dict()
         remove(temp.c_str());
     }
 }
+
+
 void DictProducer::show_files()const 
 {
     for(auto &i:_enFiles){

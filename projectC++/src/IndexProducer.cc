@@ -1,10 +1,13 @@
+#include "DictProducer.h"
 #include "IndexProducer.h"
+#include "StringTrans.h"
 
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/fcntl.h>
 
 #include <iterator>
+#include <functional>
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -18,7 +21,6 @@ using std::distance;
 
 namespace wd
 {
-/* IndexProducer * IndexProducer::_pInstance=IndexProducer::getInstance("/home/ubuntu/projectC++/data/Dictionary"); */
 
 void IndexProducer::read()
 {
@@ -44,8 +46,21 @@ void IndexProducer::read()
     ifs.close();
 }
 
-void IndexProducer::createIndex()
+void IndexProducer::createENIndex()
 {
+    set<int> temp;
+    //初始化索引unordered_map
+    for(int idx=97;idx<123;++idx)
+    {
+      char ch=idx;
+      /* std::cout<<" "<<ch<<std::endl; */
+      string tmpstr;
+      stringstream ss;
+      ss<<ch;
+      tmpstr=ss.str();
+      _index.insert(std::make_pair(tmpstr,temp));
+    }
+
     for(auto it=_dict.begin();it!=_dict.end();++it)
     {
         //将单词和在_dict中的下标值插入表中
@@ -67,17 +82,44 @@ void IndexProducer::createIndex()
             if(itIndex!=_index.end()){
                 itIndex->second.insert((int)distance(_dict.begin(),it)); 
             }
-            /* itIndex->second.insert(distance(_dict.begin(),it)-1); */ 
-            /* cout<<"333"<<endl; */
         }
     }
 }
 
-void IndexProducer::store(const char *filepath)
+void IndexProducer::createCHIndex()
+{
+    StringTrans st;
+    for(auto iter=_dict.begin();iter!=_dict.end();++iter)
+    {
+        wstring tmp =st.strToWstr(iter->first);
+        int len=(int)tmp.size();
+        for(int idx=0;idx<len;++idx)
+        {
+            //对中文中的每一汉字都建立索引
+            string key;
+            wstring ws=tmp.substr(idx,1);
+            key=st.WstrToStr(ws);
+            auto iterIndex=_index.find(key);
+            if(iterIndex==_index.end())
+            {
+                //索引表中没有找到，新汉字插入表中
+                set<int> temp;
+                temp.insert((int)distance(_dict.begin(),iter));
+                _index.insert(std::make_pair(key,temp));
+            }
+            else {
+                //索引表中找到该字符
+                iterIndex->second.insert((int)distance(_dict.begin(),iter));
+            }
+        }
+    }
+    
+}
+
+void IndexProducer::store(const string &filepath)
 {
     //存储到data文件夹里面，文件名字为Index
     string indexFile(filepath);
-    indexFile.append("Index");
     //新建立索引文件
     open(indexFile.c_str(),O_RDWR|O_CREAT,0666);
     ofstream ofs(indexFile);
@@ -97,11 +139,25 @@ void IndexProducer::store(const char *filepath)
         ofs<<endl;
     }
     ofs.close();
+    _dict.clear();
+    _index.clear();
+}
+
+void IndexProducer::setDictFilename(const string & filename)
+{
+    _dictFilename=filename;
 }
 void IndexProducer::init()
 {
     read();
-    createIndex();
+    createENIndex();
+    store("../dict/Index");
+    
+    setDictFilename("../dict/CNDictionary");
+    read();
+    createCHIndex();
+    store("../dict/CNIndex");
+
 }
 
 void IndexProducer::showDict()

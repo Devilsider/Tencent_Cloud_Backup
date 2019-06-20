@@ -86,7 +86,6 @@ void MyTask::process()
     //4.取前k个单词，并将其封装成jason文件，memcpy给ms，再
     //使用sendLoop(msg),延缓到IO线程发送
 
-    /* cout<<" _pindex = "<<_pindex<<endl; */
     
     MyDict *mydict=MyDict::getInstance();
     vector<std::pair<string,int>> &dict = mydict->getDict();

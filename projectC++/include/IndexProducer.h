@@ -21,37 +21,8 @@ class IndexProducer
 public:
     IndexProducer(const string &dictfilename)
     :_dictFilename(dictfilename)
-    {
-        _dictFilename=dictfilename;
-        set<int> temp;
-        //初始换索引unordered_map
-        for(int idx=97;idx<123;++idx) 
-        {
-            char ch=idx;
-            /* std::cout<<" "<<ch<<std::endl; */
-            string tmpstr;
-            stringstream ss;
-            ss<<ch;
-            tmpstr=ss.str();
-            _index.insert(std::make_pair(tmpstr,temp));
-        }
-    }
-    /* static IndexProducer *getInstance(const string &dictfilename) */
-    /* { */
-    /*     if(NULL==_pInstance) */
-    /*     { */
-    /*         _pInstance = new IndexProducer(dictfilename); */
-    /*         atexit(destroy); */
-    /*     } */
-    /*     return _pInstance; */
-    /* } */
-    /* static void destroy() */
-    /* { */
-    /*     if(_pInstance) */
-    /*     { */
-    /*         delete _pInstance; */
-    /*     } */
-    /* } */
+    {}
+    
 
     unordered_map<string,set<int>> & getIndex()
     {
@@ -64,35 +35,18 @@ public:
     
 
     void read();//将dict词典内容读到_dict中
-    void createIndex();//生成a~z的索引的单词
+    void createENIndex();//生成a~z的索引的单词
+    void createCHIndex();//生成中文词典
+
     void init();//包含read()和createIndex()
-    void store(const char * filepath);//存储到文件
+    void store(const string &);//存储到文件
+    void setDictFilename(const string &);//设置词典的路径
     void showDict();//测试用
     void showIndex();//测试用
-private:    
-    /* IndexProducer(const string &dictfilename) */
-    /* :_dictFilename(dictfilename) */
-    /* { */
-    /*     _dictFilename=dictfilename; */
-    /*     set<int> temp; */
-    /*     //初始换索引unordered_map */
-    /*     for(int idx=97;idx<123;++idx) */ 
-    /*     { */
-    /*         char ch=idx; */
-    /*         /1* std::cout<<" "<<ch<<std::endl; *1/ */
-    /*         string tmpstr; */
-    /*         stringstream ss; */
-    /*         ss<<ch; */
-    /*         tmpstr=ss.str(); */
-    /*         _index.insert(std::make_pair(tmpstr,temp)); */
-    /*     } */
-        
-    /* } */
 private:
     string _dictFilename;//dict词典的绝对路径
     vector<std::pair<string,int>>  _dict;//将词典内容读出来读到vector中
     unordered_map<string,set<int>> _index;//存放a~z的索引的单词
-    /* static IndexProducer* _pInstance; */
 };
 
 }
