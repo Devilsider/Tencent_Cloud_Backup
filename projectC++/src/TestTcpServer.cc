@@ -125,6 +125,7 @@ int main(void)
     //初始化redis内存数据库
     wd::MyRedis *myclient = wd::MyRedis::getInstance();
     myclient->init("127.0.0.1",6379);
+    
     //在线部分
     wd::SpellcorrectServer spcoServer("172.16.0.15",8888,4,10);
     spcoServer.start();
