@@ -9,6 +9,8 @@ namespace  wd
 class MyPage
 {
 public:
+    void parse(const string &);//将webPage里面的内容分离出来
+    string getSubStr(const string &,int &,const string &,const string &);//获取里面的子串内容
 private:
     int _docid;
     string _title;
