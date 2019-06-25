@@ -9,6 +9,7 @@
 #include "MyReaderXML.h"
 #include "MySimhasher.h"
 #include "MyPage.h"
+#include "InvertIndex.h"
 
 #include <unistd.h>
 #include <stdio.h>
@@ -40,32 +41,34 @@ int main(void)
                                 "./dict/stop_words.utf8"));
     pagelib.setPmySimhasher(pmySimhasher);
     pagelib.createNewLib();
-
-
-    //测试
-    ifstream ifs1("../../pagelib/offset.lib");
-    ifstream ifs2("../../pagelib/webpage.lib");
-    string lin; 
-    int docid,offset,length;
-    int count = 0 ;
-    while(count<422){
-        ++count;
-        getline(ifs1,lin);
-    }
-    /* ifs1>>docid; */
-    /* ifs1>>offset; */
-    /* ifs1>>length; */
-    ifs1>>docid>>offset>>length;
-    cout<<docid<<" " <<offset<<" "<<length<<endl;
-    char buff[65536]; 
-    ifs2.seekg(offset,ifs2.beg);
-    ifs2.read(buff,length);
-    string s = buff;
-    cout<<buff<<endl;
-    cout<<s<<endl;
     
-    wd::MyPage mypage;
-    mypage.parse(s);
+    wd::InvertIndex invertIndex;    
+    invertIndex.read("../../pagelib/webpage.lib","../../pagelib/new_offset.lib");
+
+    /* //测试 */
+    /* ifstream ifs1("../../pagelib/offset.lib"); */
+    /* ifstream ifs2("../../pagelib/webpage.lib"); */
+    /* string lin; */ 
+    /* int docid,offset,length; */
+    /* int count = 0 ; */
+    /* while(count<422){ */
+    /*     ++count; */
+    /*     getline(ifs1,lin); */
+    /* } */
+    /* /1* ifs1>>docid; *1/ */
+    /* /1* ifs1>>offset; *1/ */
+    /* /1* ifs1>>length; *1/ */
+    /* ifs1>>docid>>offset>>length; */
+    /* cout<<docid<<" " <<offset<<" "<<length<<endl; */
+    /* char buff[65536]; */ 
+    /* ifs2.seekg(offset,ifs2.beg); */
+    /* ifs2.read(buff,length); */
+    /* string s = buff; */
+    /* cout<<buff<<endl; */
+    /* cout<<s<<endl; */
+    
+    /* wd::MyPage mypage; */
+    /* mypage.parse(s); */
 
     return 0;
 }
