@@ -1,25 +1,32 @@
 #ifndef CPPJIEBA_PRE_FILTER_H
 #define CPPJIEBA_PRE_FILTER_H
 
-#include "Trie.hpp"
-#include "limonp/Logging.hpp"
+#include "TransCode.hpp"
 
 namespace cppjieba {
 
+//class PreFilterIterator {
+// public:
+//  PreFilterIterator() {
+//  }
+//  ~PreFilterIterator() {
+//  }
+//  
+// private:
+//  const unordered_set<Rune>& specialSymbols_;
+//}; // PreFilterIterator
+
 class PreFilter {
  public:
-  //TODO use WordRange instead of Range
   struct Range {
-    RuneStrArray::const_iterator begin;
-    RuneStrArray::const_iterator end;
+    Unicode::const_iterator begin;
+    Unicode::const_iterator end;
   }; // struct Range
 
   PreFilter(const unordered_set<Rune>& symbols, 
         const string& sentence)
     : symbols_(symbols) {
-    if (!DecodeRunesInString(sentence, sentence_)) {
-      XLOG(ERROR) << "decode failed. "; 
-    }
+    TransCode::Decode(sentence, sentence_);
     cursor_ = sentence_.begin();
   }
   ~PreFilter() {
@@ -31,7 +38,7 @@ class PreFilter {
     Range range;
     range.begin = cursor_;
     while (cursor_ != sentence_.end()) {
-      if (IsIn(symbols_, cursor_->rune)) {
+      if (IsIn(symbols_, *cursor_)) {
         if (range.begin == cursor_) {
           cursor_ ++;
         }
@@ -44,8 +51,8 @@ class PreFilter {
     return range;
   }
  private:
-  RuneStrArray::const_iterator cursor_;
-  RuneStrArray sentence_;
+  Unicode::const_iterator cursor_;
+  Unicode sentence_;
   const unordered_set<Rune>& symbols_;
 }; // class PreFilter
 

@@ -25,29 +25,21 @@ class HMMSegment: public SegmentBase {
 
   void Cut(const string& sentence, 
         vector<string>& words) const {
-    vector<Word> tmp;
-    Cut(sentence, tmp);
-    GetStringsFromWords(tmp, words);
-  }
-  void Cut(const string& sentence, 
-        vector<Word>& words) const {
     PreFilter pre_filter(symbols_, sentence);
     PreFilter::Range range;
-    vector<WordRange> wrs;
-    wrs.reserve(sentence.size()/2);
+    vector<Unicode> uwords;
+    uwords.reserve(sentence.size());
     while (pre_filter.HasNext()) {
       range = pre_filter.Next();
-      Cut(range.begin, range.end, wrs);
+      Cut(range.begin, range.end, uwords);
     }
-    words.clear();
-    words.reserve(wrs.size());
-    GetWordsFromWordRanges(sentence, wrs, words);
+    TransCode::Encode(uwords, words);
   }
-  void Cut(RuneStrArray::const_iterator begin, RuneStrArray::const_iterator end, vector<WordRange>& res) const {
-    RuneStrArray::const_iterator left = begin;
-    RuneStrArray::const_iterator right = begin;
+  void Cut(Unicode::const_iterator begin, Unicode::const_iterator end, vector<Unicode>& res) const {
+    Unicode::const_iterator left = begin;
+    Unicode::const_iterator right = begin;
     while (right != end) {
-      if (right->rune < 0x80) {
+      if (*right < 0x80) {
         if (left != right) {
           InternalCut(left, right, res);
         }
@@ -63,8 +55,7 @@ class HMMSegment: public SegmentBase {
           }
           right ++;
         } while (false);
-        WordRange wr(left, right - 1);
-        res.push_back(wr);
+        res.push_back(Unicode(left, right));
         left = right;
       } else {
         right++;
@@ -76,15 +67,15 @@ class HMMSegment: public SegmentBase {
   }
  private:
   // sequential letters rule
-  RuneStrArray::const_iterator SequentialLetterRule(RuneStrArray::const_iterator begin, RuneStrArray::const_iterator end) const {
-    Rune x = begin->rune;
+  Unicode::const_iterator SequentialLetterRule(Unicode::const_iterator begin, Unicode::const_iterator end) const {
+    Rune x = *begin;
     if (('a' <= x && x <= 'z') || ('A' <= x && x <= 'Z')) {
       begin ++;
     } else {
       return begin;
     }
     while (begin != end) {
-      x = begin->rune;
+      x = *begin;
       if (('a' <= x && x <= 'z') || ('A' <= x && x <= 'Z') || ('0' <= x && x <= '9')) {
         begin ++;
       } else {
@@ -94,15 +85,15 @@ class HMMSegment: public SegmentBase {
     return begin;
   }
   //
-  RuneStrArray::const_iterator NumbersRule(RuneStrArray::const_iterator begin, RuneStrArray::const_iterator end) const {
-    Rune x = begin->rune;
+  Unicode::const_iterator NumbersRule(Unicode::const_iterator begin, Unicode::const_iterator end) const {
+    Rune x = *begin;
     if ('0' <= x && x <= '9') {
       begin ++;
     } else {
       return begin;
     }
     while (begin != end) {
-      x = begin->rune;
+      x = *begin;
       if ( ('0' <= x && x <= '9') || x == '.') {
         begin++;
       } else {
@@ -111,24 +102,23 @@ class HMMSegment: public SegmentBase {
     }
     return begin;
   }
-  void InternalCut(RuneStrArray::const_iterator begin, RuneStrArray::const_iterator end, vector<WordRange>& res) const {
+  void InternalCut(Unicode::const_iterator begin, Unicode::const_iterator end, vector<Unicode>& res) const {
     vector<size_t> status;
     Viterbi(begin, end, status);
 
-    RuneStrArray::const_iterator left = begin;
-    RuneStrArray::const_iterator right;
+    Unicode::const_iterator left = begin;
+    Unicode::const_iterator right;
     for (size_t i = 0; i < status.size(); i++) {
       if (status[i] % 2) { //if (HMMModel::E == status[i] || HMMModel::S == status[i])
         right = begin + i + 1;
-        WordRange wr(left, right - 1);
-        res.push_back(wr);
+        res.push_back(Unicode(left, right));
         left = right;
       }
     }
   }
 
-  void Viterbi(RuneStrArray::const_iterator begin, 
-        RuneStrArray::const_iterator end, 
+  void Viterbi(Unicode::const_iterator begin, 
+        Unicode::const_iterator end, 
         vector<size_t>& status) const {
     size_t Y = HMMModel::STATUS_SUM;
     size_t X = end - begin;
@@ -142,7 +132,7 @@ class HMMSegment: public SegmentBase {
 
     //start
     for (size_t y = 0; y < Y; y++) {
-      weight[0 + y * X] = model_->startProb[y] + model_->GetEmitProb(model_->emitProbVec[y], begin->rune, MIN_DOUBLE);
+      weight[0 + y * X] = model_->startProb[y] + model_->GetEmitProb(model_->emitProbVec[y], *begin, MIN_DOUBLE);
       path[0 + y * X] = -1;
     }
 
@@ -153,7 +143,7 @@ class HMMSegment: public SegmentBase {
         now = x + y*X;
         weight[now] = MIN_DOUBLE;
         path[now] = HMMModel::E; // warning
-        emitProb = model_->GetEmitProb(model_->emitProbVec[y], (begin+x)->rune, MIN_DOUBLE);
+        emitProb = model_->GetEmitProb(model_->emitProbVec[y], *(begin+x), MIN_DOUBLE);
         for (size_t preY = 0; preY < Y; preY++) {
           old = x - 1 + preY * X;
           tmp = weight[old] + model_->transProb[preY][y] + emitProb;

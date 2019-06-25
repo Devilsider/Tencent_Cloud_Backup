@@ -6,12 +6,11 @@
 #include <cassert>
 #include "limonp/Logging.hpp"
 #include "DictTrie.hpp"
-#include "SegmentTagged.hpp"
-#include "PosTagger.hpp"
+#include "SegmentBase.hpp"
 
 namespace cppjieba {
 
-class MPSegment: public SegmentTagged {
+class MPSegment: public SegmentBase {
  public:
   MPSegment(const string& dictPath, const string& userDictPath = "")
     : dictTrie_(new DictTrie(dictPath, userDictPath)), isNeedDestroy_(true) {
@@ -26,35 +25,22 @@ class MPSegment: public SegmentTagged {
     }
   }
 
-  void Cut(const string& sentence, vector<string>& words) const {
-    Cut(sentence, words, MAX_WORD_LENGTH);
-  }
-
-  void Cut(const string& sentence,
-        vector<string>& words,
-        size_t max_word_len) const {
-    vector<Word> tmp;
-    Cut(sentence, tmp, max_word_len);
-    GetStringsFromWords(tmp, words);
-  }
   void Cut(const string& sentence, 
-        vector<Word>& words, 
+        vector<string>& words, 
         size_t max_word_len = MAX_WORD_LENGTH) const {
     PreFilter pre_filter(symbols_, sentence);
     PreFilter::Range range;
-    vector<WordRange> wrs;
-    wrs.reserve(sentence.size()/2);
+    vector<Unicode> uwords;
+    uwords.reserve(sentence.size());
     while (pre_filter.HasNext()) {
       range = pre_filter.Next();
-      Cut(range.begin, range.end, wrs, max_word_len);
+      Cut(range.begin, range.end, uwords, max_word_len);
     }
-    words.clear();
-    words.reserve(wrs.size());
-    GetWordsFromWordRanges(sentence, wrs, words);
+    TransCode::Encode(uwords, words);
   }
-  void Cut(RuneStrArray::const_iterator begin,
-           RuneStrArray::const_iterator end,
-           vector<WordRange>& words,
+  void Cut(Unicode::const_iterator begin,
+           Unicode::const_iterator end,
+           vector<Unicode>& words,
            size_t max_word_len = MAX_WORD_LENGTH) const {
     vector<Dag> dags;
     dictTrie_->Find(begin, 
@@ -62,15 +48,11 @@ class MPSegment: public SegmentTagged {
           dags,
           max_word_len);
     CalcDP(dags);
-    CutByDag(begin, end, dags, words);
+    CutByDag(dags, words);
   }
 
   const DictTrie* GetDictTrie() const {
     return dictTrie_;
-  }
-
-  bool Tag(const string& src, vector<pair<string, string> >& res) const {
-    return tagger_.Tag(src, res, *this);
   }
 
   bool IsUserDictSingleChineseWord(const Rune& value) const {
@@ -106,21 +88,16 @@ class MPSegment: public SegmentTagged {
       }
     }
   }
-  void CutByDag(RuneStrArray::const_iterator begin, 
-        RuneStrArray::const_iterator end, 
-        const vector<Dag>& dags, 
-        vector<WordRange>& words) const {
+  void CutByDag(const vector<Dag>& dags, 
+        vector<Unicode>& words) const {
     size_t i = 0;
     while (i < dags.size()) {
       const DictUnit* p = dags[i].pInfo;
       if (p) {
-        assert(p->word.size() >= 1);
-        WordRange wr(begin + i, begin + i + p->word.size() - 1);
-        words.push_back(wr);
+        words.push_back(p->word);
         i += p->word.size();
       } else { //single chinese word
-        WordRange wr(begin + i, begin + i);
-        words.push_back(wr);
+        words.push_back(Unicode(1, dags[i].rune));
         i++;
       }
     }
@@ -128,8 +105,6 @@ class MPSegment: public SegmentTagged {
 
   const DictTrie* dictTrie_;
   bool isNeedDestroy_;
-  PosTagger tagger_;
-
 }; // class MPSegment
 
 } // namespace cppjieba

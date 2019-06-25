@@ -8,36 +8,27 @@
 
 namespace cppjieba {
 
-const char* const SPECIAL_SEPARATORS = " \t\n\xEF\xBC\x8C\xE3\x80\x82";
+//const char* const SPECIAL_CHARS = " \t\n，。";
+const Rune SPECIAL_SYMBOL[] = {32u, 9u, 10u, 65292u, 12290u};
 
 using namespace limonp;
 
 class SegmentBase {
  public:
   SegmentBase() {
-    XCHECK(ResetSeparators(SPECIAL_SEPARATORS));
+    LoadSpecialSymbols();
   }
-  virtual ~SegmentBase() {
+  ~SegmentBase() {
   }
 
-  virtual void Cut(const string& sentence, vector<string>& words) const = 0;
-
-  bool ResetSeparators(const string& s) {
-    symbols_.clear();
-    RuneStrArray runes;
-    if (!DecodeRunesInString(s, runes)) {
-      XLOG(ERROR) << "decode " << s << " failed";
-      return false;
-    }
-    for (size_t i = 0; i < runes.size(); i++) {
-      if (!symbols_.insert(runes[i].rune).second) {
-        XLOG(ERROR) << s.substr(runes[i].offset, runes[i].len) << " already exists";
-        return false;
-      }
-    }
-    return true;
-  }
  protected:
+  void LoadSpecialSymbols() {
+    size_t size = sizeof(SPECIAL_SYMBOL)/sizeof(*SPECIAL_SYMBOL);
+    for (size_t i = 0; i < size; i ++) {
+      symbols_.insert(SPECIAL_SYMBOL[i]);
+    }
+    assert(symbols_.size());
+  }
   unordered_set<Rune> symbols_;
 }; // class SegmentBase
 
