@@ -25,13 +25,38 @@ void MyReaderXML::parseRss(const string &filename)
     RssItem temp;
     
     XMLElement* title = channel->FirstChildElement("title");
-    temp.title=title->GetText();
+    if(title!=NULL)
+    {
+        if(NULL==title->GetText())
+        {
+             temp.title="";
+        }else{
+            cout<<temp.title<<endl;       
+            temp.title=title->GetText();
+        }
+    }
 
     XMLElement* link = title->NextSiblingElement("link");
-    temp.link = link->GetText();
+    if(link!=NULL)
+    {
+        if(NULL==link->GetText())
+        {
+            temp.link = "";
+        }else{
+             temp.link = link->GetText();
+        }
+    }
 
     XMLElement* description = title->NextSiblingElement("description");
-    temp.description = description->GetText();
+    if(description!=NULL) 
+    {
+        if(NULL==description->GetText())
+        {
+            temp.description = "";
+        }else{
+            temp.description = description->GetText();
+        }
+    }
     
     _rss.push_back(temp);
 
@@ -41,25 +66,120 @@ void MyReaderXML::parseRss(const string &filename)
     while(item)
     {
         RssItem tmp;
-        
         XMLElement* itemTitle = item->FirstChildElement("title");
-        tmp.title = itemTitle->GetText();
-        
+        if(itemTitle!=NULL)
+        {
+            if(NULL==itemTitle->GetText()) 
+            {
+                tmp.title = "";
+            }
+            else {
+                tmp.title = itemTitle->GetText();
+            }
+        }
         XMLElement* itemLink = item->FirstChildElement("link");
-        tmp.link = itemLink->GetText();
+        if(itemLink!=NULL)
+        {
+            if(NULL==itemLink->GetText()){
+                tmp.link = "";
+            }
+            else {
+                tmp.link = itemLink->GetText();
+            }
+        }
         
+
         XMLElement* itemDescription = item->FirstChildElement("description");
-        tmp.description = itemDescription->GetText();
+        if(itemDescription!=NULL) 
+        {
+            if(NULL==itemDescription->GetText())
+            {
+                tmp.description="";
+            }
+            else{
+                tmp.description = itemDescription->GetText();
+            }
+        }
         
         XMLElement* itemContent = item->FirstChildElement("content::encoded");
-        tmp.content = itemContent->GetText();
+        if(itemContent!=NULL) 
+        {
+            if(NULL==itemContent)
+            {
+                tmp.content="";
+            }
+            else 
+            {
+                tmp.content = itemContent->GetText();
+            }
+        }
 
         _rss.push_back(tmp);
         item = item->NextSiblingElement("item");
     }
 
 }
-
+void MyReaderXML::parseDoc(const string &filename)
+{
+    tinyxml2::XMLDocument pagelib;
+    pagelib.LoadFile(filename.c_str());
+    if(0!=pagelib.Error()){
+        cout<<"load file "<<filename<<" error!"<<endl;
+        return;
+    }
+    XMLElement* doc  = pagelib.RootElement() ;
+    while(doc){
+        string temp;
+        XMLElement* docid = doc->FirstChildElement("docid");
+        if(docid!=NULL){
+            if(docid->GetText()!=NULL)
+            {
+                temp.append("<doc><docid>").append(docid->GetText()).append("</docid>");
+            }
+            else {
+                temp.append("<doc><docid>").append("</docid>");
+            }
+        }
+        XMLElement* title = doc->FirstChildElement("title");
+        if(title!=NULL){
+            if(title->GetText()!=NULL){
+                temp.append("<title>").append(title->GetText()).append("</title>");
+            }
+            else{
+                temp.append("<title>").append("</title>");
+            }
+        }
+        XMLElement* link = doc->FirstChildElement("link");
+        if(link!=NULL){
+            if(link->GetText()!=NULL){
+                temp.append("<link>").append(link->GetText()).append("</link>");
+            }
+            else{
+                temp.append("<link>").append("</link>");
+            }
+        }
+        XMLElement* description = doc->FirstChildElement("description");
+        if(description!=NULL){
+            if(description->GetText()!=NULL){
+                temp.append("<description>").append(description->GetText()).append("</description>");
+            }
+            else{
+                temp.append("<description>").append("</description>");
+            }
+        }
+        XMLElement* content = doc->FirstChildElement("content::encoded");
+        if(content!=NULL){
+            if(content->GetText()!=NULL){
+                temp.append("<content::encoded>").append(content->GetText()).append("</content::encoded>");
+            }
+            else{
+                temp.append("<content::encoded>").append("</content::encoded>").append("</doc>");
+            }
+        }
+        _vecFilesfile.push_back(temp);
+        doc = doc->NextSiblingElement("doc");
+    }
+}
 void MyReaderXML::dump(const string &filename)
 {
     ofstream ofs(filename,std::ios::app);
@@ -68,16 +188,17 @@ void MyReaderXML::dump(const string &filename)
     for(auto iter =_rss.begin();iter!=_rss.end();++iter)
     {
         string tmp;
+        regex pattern("<(.|\\s)*?>");
         ofs<<"<doc>"<<endl;
-        ofs<<" <docid> "<<id<<" </docid>"<<endl;
-        ofs<<" <title> "<<iter->title<<" </title>"<<endl;
-        ofs<<" <link> "<<iter->link<<" </link>"<<endl;
-        ofs<<" <description> "<<iter->description<<" </description>"<<endl;
-        
-        regex pattern("<.*?>");
-        tmp = regex_replace(iter->content,pattern," ");
-        iter->content=tmp;
-        ofs<<" <content::encoded> "<<iter->content<<" </content::encoded>"<<endl;
+        ofs<<" <docid>"<<id<<"</docid>"<<endl;
+        tmp = regex_replace(iter->title,pattern,"");
+        ofs<<" <title>"<<tmp<<"</title>"<<endl;
+        tmp = regex_replace(iter->link,pattern,"");
+        ofs<<" <link>"<<tmp<<"</link>"<<endl;
+        tmp = regex_replace(iter->description,pattern,"");
+        ofs<<" <description>"<<tmp<<"</description>"<<endl;
+        tmp = regex_replace(iter->content,pattern,"");
+        ofs<<" <content::encoded>"<<tmp<<"</content::encoded>"<<endl;
         ofs<<"</doc>"<<endl;
         ++id;
     }

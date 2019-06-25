@@ -128,17 +128,18 @@ void MyReaderXML::dump(const string &filename)
     for(auto iter =_rss.begin();iter!=_rss.end();++iter)
     {
         string tmp;
-        regex pattern("<.*?>");
+        regex pattern("<(.|\\s)*?>");
         ofs<<"<doc>"<<endl;
-        ofs<<" <docid> "<<id<<" </docid>"<<endl;
-        tmp = regex_replace(iter->title,pattern," ");
-        ofs<<" <title> "<<tmp<<" </title>"<<endl;
-        tmp = regex_replace(iter->link,pattern," ");
-        ofs<<" <link> "<<iter->link<<" </link>"<<endl;
-        tmp = regex_replace(iter->description,pattern," ");
-        ofs<<" <description> "<<iter->description<<" </description>"<<endl;
-        tmp = regex_replace(iter->content,pattern," ");
-        ofs<<" <content::encoded> "<<tmp<<" </content::encoded>"<<endl;
+        ofs<<" <docid>"<<id<<"</docid>"<<endl;
+        tmp = regex_replace(iter->title,pattern,"");
+        ofs<<" <title>"<<tmp<<"</title>"<<endl;
+        tmp = regex_replace(iter->link,pattern,"");
+        ofs<<" <link>"<<tmp<<"</link>"<<endl;
+        tmp = regex_replace(iter->description,pattern,"");
+        cout<< tmp <<endl;
+        ofs<<" <description>"<<tmp<<"</description>"<<endl;
+        tmp = regex_replace(iter->content,pattern,"");
+        ofs<<" <content::encoded>"<<tmp<<"</content::encoded>"<<endl;
         ofs<<"</doc>"<<endl;
         ++id;
     }

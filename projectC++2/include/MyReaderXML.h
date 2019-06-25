@@ -33,9 +33,17 @@ class MyReaderXML
 {
 public:
     void parseRss(const string &filename);
+    void parseDoc(const string &filename);
     void dump(const string &filename);
+
+    vector<string> & getVecFilesfile()
+    {
+        //获得vector
+        return _vecFilesfile;
+    }
 private:
     vector<RssItem> _rss;
+    vector<string> _vecFilesfile;//存储字符串化后的网页
 };
 
 }//end of namespace

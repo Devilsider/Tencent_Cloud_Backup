@@ -15,7 +15,7 @@ public:
     PageLib(DirScanner &dirscanner);
     void createFormatPageLib();//创建格式化网页库
     void createWebLib();//创建用offset读取的网页库
-    void createOffsetLib();//创建网页偏移库
+    void createOffsetLib(int docid,int offset, int length );//创建网页偏移库,网页序号，网页库偏移，长度
     void store();//存储formatPageLib,webLib,offsetLib
 private:
     DirScanner &_dirScanner;//目录扫描对象的引用
