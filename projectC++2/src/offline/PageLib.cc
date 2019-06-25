@@ -43,6 +43,7 @@ void PageLib::createOffsetLib(int docid,int offset,int len,const string & path)
         cout<<"ofs open file "<<"offset.lib error"<<endl;
     }
     ofs<<docid<<" "<<offset<<" "<<len<<endl;
+    ofs.close();
 }
 
 void PageLib::store()
@@ -63,6 +64,7 @@ void PageLib::store()
         createOffsetLib(docid,offset,len,"../../pagelib/offset.lib");
         idx++;
     }
+    ofs.close();
 }
 
 void PageLib::createNewLib()
@@ -91,6 +93,9 @@ void PageLib::createNewLib()
             ofsNewOffset<<docid<<" "<<offset<<" "<<len<<endl;
         }
     }
+    ifsWebLib.close();
+    ifsOffset.close();
+    ofsNewOffset.close();
 }
 
 bool PageLib::isDuplicateWeb(const string &web)

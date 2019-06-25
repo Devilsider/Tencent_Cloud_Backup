@@ -28,8 +28,6 @@ void InvertIndex::read(const string &webpath,const string &newoffset)
         ifsWeb.seekg(offset,ifsWeb.beg);
         ifsWeb.read(buff,len);
         web = buff;
-     
-        //读取一个web
         MyPage myPage; 
         myPage.parse(web);
         MyWebPage myWebPage(myPage.getDocid(),
@@ -42,7 +40,13 @@ void InvertIndex::read(const string &webpath,const string &newoffset)
     for(auto &i:_allMyWeb)
     {
         printf("%d\n",i.getDocid());
+        printf("%s\n",i.getTitle().c_str());
+        printf("%s\n",i.getLink().c_str());
+        printf("%s\n",i.getDescription().c_str());
+        printf("%s\n",i.getContent().c_str());
     }
+    ifsWeb.close();
+    ifsNewOffset.close();
 }
 
 }//end of namespace;

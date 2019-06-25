@@ -9,11 +9,6 @@ namespace wd
 
 void MyPage::parse(const string & web)
 {
-    int docid;
-    string title;
-    string link; 
-    string description;
-    string content;
 
     int idx= 0 ;
     int len =(int)web.size();
@@ -22,23 +17,23 @@ void MyPage::parse(const string & web)
         if(web.substr(idx,7)=="<docid>")
         {
             string res =  getSubStr(web,idx,"<docid>","</docid>");
-            docid = stoi(res);
+            _docid = stoi(res);
         }
         else if(web.substr(idx,7)=="<title>")
         {
-            title = getSubStr(web,idx,"<title>","</title>");
+            _title = getSubStr(web,idx,"<title>","</title>");
         }
         else if(web.substr(idx,6)=="<link>")
         {
-            link = getSubStr(web,idx,"<link>","</link>");
+            _link = getSubStr(web,idx,"<link>","</link>");
         }
         else if(web.substr(idx,13)=="<description>")
         {
-            description = getSubStr(web,idx,"<description>","</description>");
+            _description = getSubStr(web,idx,"<description>","</description>");
         }
         else if(web.substr(idx,9)=="<content>")
         {
-            content = getSubStr(web,idx,"<content>","</content>");
+            _content = getSubStr(web,idx,"<content>","</content>");
         }
         else {
             ++idx;
