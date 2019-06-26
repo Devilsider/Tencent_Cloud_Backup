@@ -1,8 +1,10 @@
 #include "MyPage.h"
+#include "Jieba.hpp"
+
 #include <iostream>
 using std::cout;
 using std::endl;
-
+using std::vector;
 
 namespace wd
 {
@@ -39,7 +41,6 @@ void MyPage::parse(const string & web)
             ++idx;
         }
     }
-
 }
 string MyPage::getSubStr(const string &web,int &idx,const string &start,const string &end)
 {
@@ -54,6 +55,48 @@ string MyPage::getSubStr(const string &web,int &idx,const string &start,const st
     return res;
 }
 
+void MyPage::createWordFreMap()
+{
+    //分词
+    cppjieba::Jieba jieba("./dict/jieba.dict.utf8","./dict/hmm_model.utf8","./dict/user.dict.utf8");
+    vector<string> wordsTitle;
+    vector<string> wordsDes;
+    vector<string> wordsContent;
+    jieba.Cut(_title,wordsTitle,true);
+    jieba.Cut(_description,wordsDes,true);
+    jieba.Cut(_content,wordsContent,true);
+    
+    for(auto &i:wordsTitle){
+        auto iter = _wordFreMap.find(i);
+        if(iter==_wordFreMap.end()){
+            //没有找到
+            _wordFreMap.insert(std::make_pair(i,1));
+        }else {
+            //找到了
+            ++_wordFreMap[i];
+        }
+    }
+    for(auto &i:wordsDes){
+        auto iter = _wordFreMap.find(i);
+        if(iter==_wordFreMap.end()){
+            //没有找到
+            _wordFreMap.insert(std::make_pair(i,1));
+        }else {
+            //找到了
+            ++_wordFreMap[i];
+        }
+    }
+    for(auto &i:wordsContent){
+        auto iter = _wordFreMap.find(i);
+        if(iter==_wordFreMap.end()){
+            //没有找到
+            _wordFreMap.insert(std::make_pair(i,1));
+        }else {
+            //找到了
+            ++_wordFreMap[i];
+        }
+    }
+}
 
 }//end of namespace 
 

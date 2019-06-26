@@ -44,7 +44,8 @@ int main(void)
     
     wd::InvertIndex invertIndex;    
     invertIndex.read("../../pagelib/webpage.lib","../../pagelib/new_offset.lib");
-
+    invertIndex.createInvertIndex();
+    invertIndex.store("../../pagelib/InvertIndex.lib");
     //测试
     /* ifstream ifs1("../../pagelib/offset.lib"); */
     /* ifstream ifs2("../../pagelib/webpage.lib"); */
@@ -61,8 +62,8 @@ int main(void)
     /* /1* ifs1>>docid>>offset>>length; *1/ */
     /* /1* cout<<docid<<" " <<offset<<" "<<length<<endl; *1/ */
     /* char buff[65536]; */ 
-    /*  offset = 604444; */
-    /*  length = 40246; */
+    /*  offset = 0; */
+    /*  length = 182; */
     /* ifs2.seekg(offset,ifs2.beg); */
     /* ifs2.read(buff,length); */
     /* string s = buff; */
@@ -77,6 +78,7 @@ int main(void)
     /* cout<<mypage.getLink()<<endl; */
     /* cout<<mypage.getDescription()<<endl; */
     /* cout<<mypage.getContent()<<endl; */
+    /* mypage.createWordFreMap(); */
     
     return 0;
 }

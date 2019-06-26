@@ -7,10 +7,11 @@
 #include <string>
 #include <set>
 #include <unordered_map>
+
 using std::string;
 using std::vector;
-using std::unordered_map;
 using std::set;
+using std::unordered_map;
 namespace  wd
 {
 
@@ -22,6 +23,7 @@ public:
     void store(const string &);//生成的倒排索引表存储到磁盘
 private:
     vector<MyWebPage> _allMyWeb;//存放所有的网页内容
+    unordered_map<string ,int> _wordCount;//包含该单词的文档数df
     unordered_map<string,set<std::pair<int,double>>> _invertIndex;
 };
 

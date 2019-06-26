@@ -11,12 +11,14 @@ public:
               const string &link,
               const string &title,
               const string &description,
-              const string &content)
+              const string &content,
+              unordered_map<string,int> wordFreMap)
     :_docid(docid),
     _link(link),
     _title(title),
     _description(description),
-    _content(content)
+    _content(content),
+    _wordFreMap(wordFreMap)
     {}
 
     int getDocid()const {
