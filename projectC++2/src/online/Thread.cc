@@ -18,7 +18,6 @@ Thread::Thread(ThreadCallback && cb)
 , _cb(std::move(cb))
 , _isRunning(false)
 {
-	cout << "Thread()" << endl;
 }
 
 void Thread::start()
@@ -47,7 +46,6 @@ Thread::~Thread()
 	if(_isRunning) {
 		pthread_detach(_pthid);	
 	}
-	cout << "~Thread()" << endl;
 }
 
 }//end of namespace wd

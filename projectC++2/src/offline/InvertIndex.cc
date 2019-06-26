@@ -89,6 +89,30 @@ void InvertIndex::createInvertIndex()
             }
         }
     }
+    //unordered_map对所有的权重进行归一化处理
+    for(auto iter = _invertIndex.begin();iter!= _invertIndex.end();++iter)
+    {
+        double M;
+        double weight2Sum= 0;
+        auto tmpSet = iter->second;
+        for(auto iter2 = tmpSet.begin();iter2!=tmpSet.end();++iter2)
+        {
+            weight2Sum += iter2->second * iter2->second;
+        }
+        M = sqrt(weight2Sum);
+        //归一化
+        //更新替换未归一化的set
+        set<std::pair<int ,double>> newSet;
+        for(auto iter3 = tmpSet.begin();iter3!=tmpSet.end();++iter3)
+        {
+            double tempWeight;
+            int tempDocid;
+            tempDocid = iter3->first;
+            tempWeight = iter3->second/M;
+            newSet.insert(std::make_pair(tempDocid,tempWeight));
+        }
+        swap(iter->second,newSet);
+    }
 }
 void InvertIndex::store(const string & filepath)
 {
