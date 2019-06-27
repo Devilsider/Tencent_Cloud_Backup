@@ -20,7 +20,7 @@ public:
     _content(content),
     _wordFreMap(wordFreMap)
     {}
-
+    MyWebPage(){}
     int getDocid()const {
         return _docid;
     }

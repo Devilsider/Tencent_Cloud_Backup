@@ -1,6 +1,6 @@
 #pragma once
 #include "TcpConnection.h"
-#include "MyWebPage.h"
+#include "MyTask.h"
 
 #include <queue>
 #include <vector>
@@ -32,9 +32,9 @@ public:
     void initQuery();//初始化查询单词
 private:
     string _query;//带查询的输入的字符串
-    vector<string> _words;//拆分成单词的字符串
     TcpConnectionPtr _conn;//conn->sendLoop(msg);延迟到IO线程传输
-    priority_queue<MyWebPage> _que;
+    vector<string> _words;//存储分割后的单词
+    /* priority_queue<MyWebPage> _que; */
 };
 
 }
