@@ -1,0 +1,628 @@
+30910:C 21 Jun 2019 14:42:38.247 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+30910:C 21 Jun 2019 14:42:38.247 # Redis version=5.0.5, bits=64, commit=afd44f71, modified=1, pid=30910, just started
+30910:C 21 Jun 2019 14:42:38.247 # Configuration loaded
+30911:M 21 Jun 2019 14:42:38.249 * Increased maximum number of open files to 10032 (it was originally set to 1024).
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 5.0.5 (afd44f71/1) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 30911
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+30911:M 21 Jun 2019 14:42:38.250 # Server initialized
+30911:M 21 Jun 2019 14:42:38.250 * DB loaded from disk: 0.000 seconds
+30911:M 21 Jun 2019 14:42:38.250 * Ready to accept connections
+30911:M 21 Jun 2019 14:50:50.893 * 10 changes in 300 seconds. Saving...
+30911:M 21 Jun 2019 14:50:50.893 * Background saving started by pid 31808
+31808:C 21 Jun 2019 14:50:50.906 * DB saved on disk
+31808:C 21 Jun 2019 14:50:50.907 * RDB: 0 MB of memory used by copy-on-write
+30911:M 21 Jun 2019 14:50:50.994 * Background saving terminated with success
+30911:M 21 Jun 2019 15:05:51.062 * 1 changes in 900 seconds. Saving...
+30911:M 21 Jun 2019 15:05:51.062 * Background saving started by pid 3285
+3285:C 21 Jun 2019 15:05:51.071 * DB saved on disk
+3285:C 21 Jun 2019 15:05:51.072 * RDB: 0 MB of memory used by copy-on-write
+30911:M 21 Jun 2019 15:05:51.162 * Background saving terminated with success
+30911:M 21 Jun 2019 15:20:52.067 * 1 changes in 900 seconds. Saving...
+30911:M 21 Jun 2019 15:20:52.068 * Background saving started by pid 5798
+5798:C 21 Jun 2019 15:20:52.085 * DB saved on disk
+5798:C 21 Jun 2019 15:20:52.086 * RDB: 0 MB of memory used by copy-on-write
+30911:M 21 Jun 2019 15:20:52.168 * Background saving terminated with success
+30911:M 21 Jun 2019 16:08:00.743 * 1 changes in 900 seconds. Saving...
+30911:M 21 Jun 2019 16:08:00.744 * Background saving started by pid 13722
+13722:C 21 Jun 2019 16:08:00.758 * DB saved on disk
+13722:C 21 Jun 2019 16:08:00.758 * RDB: 0 MB of memory used by copy-on-write
+30911:M 21 Jun 2019 16:08:00.844 * Background saving terminated with success
+30911:M 21 Jun 2019 16:23:01.028 * 1 changes in 900 seconds. Saving...
+30911:M 21 Jun 2019 16:23:01.028 * Background saving started by pid 16433
+16433:C 21 Jun 2019 16:23:01.038 * DB saved on disk
+16433:C 21 Jun 2019 16:23:01.039 * RDB: 0 MB of memory used by copy-on-write
+30911:M 21 Jun 2019 16:23:01.128 * Background saving terminated with success
+30911:M 21 Jun 2019 16:38:02.078 * 1 changes in 900 seconds. Saving...
+30911:M 21 Jun 2019 16:38:02.078 * Background saving started by pid 19536
+19536:C 21 Jun 2019 16:38:02.091 * DB saved on disk
+19536:C 21 Jun 2019 16:38:02.092 * RDB: 0 MB of memory used by copy-on-write
+30911:M 21 Jun 2019 16:38:02.179 * Background saving terminated with success
+30911:M 21 Jun 2019 16:53:03.046 * 1 changes in 900 seconds. Saving...
+30911:M 21 Jun 2019 16:53:03.046 * Background saving started by pid 21334
+21334:C 21 Jun 2019 16:53:03.057 * DB saved on disk
+21334:C 21 Jun 2019 16:53:03.058 * RDB: 0 MB of memory used by copy-on-write
+30911:M 21 Jun 2019 16:53:03.147 * Background saving terminated with success
+30911:M 21 Jun 2019 17:04:26.429 # User requested shutdown...
+30911:M 21 Jun 2019 17:04:26.429 * Saving the final RDB snapshot before exiting.
+30911:M 21 Jun 2019 17:04:26.443 * DB saved on disk
+30911:M 21 Jun 2019 17:04:26.443 * Removing the pid file.
+30911:M 21 Jun 2019 17:04:26.443 # Redis is now ready to exit, bye bye...
+22893:C 21 Jun 2019 17:06:32.258 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+22893:C 21 Jun 2019 17:06:32.258 # Redis version=5.0.5, bits=64, commit=afd44f71, modified=1, pid=22893, just started
+22893:C 21 Jun 2019 17:06:32.258 # Configuration loaded
+22894:M 21 Jun 2019 17:06:32.260 * Increased maximum number of open files to 10032 (it was originally set to 1024).
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 5.0.5 (afd44f71/1) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 22894
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+22894:M 21 Jun 2019 17:06:32.261 # Server initialized
+22894:M 21 Jun 2019 17:06:32.261 # Short read or OOM loading DB. Unrecoverable error, aborting now.
+22894:M 21 Jun 2019 17:06:32.261 # Internal error in RDB reading function at rdb.c:2058 -> Unexpected EOF reading RDB file
+23195:C 21 Jun 2019 17:08:54.414 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+23195:C 21 Jun 2019 17:08:54.415 # Redis version=5.0.5, bits=64, commit=afd44f71, modified=1, pid=23195, just started
+23195:C 21 Jun 2019 17:08:54.415 # Configuration loaded
+23198:M 21 Jun 2019 17:08:54.422 * Increased maximum number of open files to 10032 (it was originally set to 1024).
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 5.0.5 (afd44f71/1) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 23198
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+23198:M 21 Jun 2019 17:08:54.423 # Server initialized
+23198:M 21 Jun 2019 17:08:54.423 * DB loaded from disk: 0.000 seconds
+23198:M 21 Jun 2019 17:08:54.423 * Ready to accept connections
+23198:M 21 Jun 2019 17:09:07.033 # User requested shutdown...
+23198:M 21 Jun 2019 17:09:07.033 * Saving the final RDB snapshot before exiting.
+23198:M 21 Jun 2019 17:09:07.044 * DB saved on disk
+23198:M 21 Jun 2019 17:09:07.044 * Removing the pid file.
+23198:M 21 Jun 2019 17:09:07.044 # Redis is now ready to exit, bye bye...
+23388:C 21 Jun 2019 17:09:32.018 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+23388:C 21 Jun 2019 17:09:32.019 # Redis version=5.0.5, bits=64, commit=afd44f71, modified=1, pid=23388, just started
+23388:C 21 Jun 2019 17:09:32.019 # Configuration loaded
+23389:M 21 Jun 2019 17:09:32.021 * Increased maximum number of open files to 10032 (it was originally set to 1024).
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 5.0.5 (afd44f71/1) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 23389
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+23389:M 21 Jun 2019 17:09:32.021 # Server initialized
+23389:M 21 Jun 2019 17:09:32.021 # Short read or OOM loading DB. Unrecoverable error, aborting now.
+23389:M 21 Jun 2019 17:09:32.021 # Internal error in RDB reading function at rdb.c:2058 -> Unexpected EOF reading RDB file
+23407:C 21 Jun 2019 17:09:38.564 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+23407:C 21 Jun 2019 17:09:38.564 # Redis version=5.0.5, bits=64, commit=afd44f71, modified=1, pid=23407, just started
+23407:C 21 Jun 2019 17:09:38.564 # Configuration loaded
+23408:M 21 Jun 2019 17:09:38.567 * Increased maximum number of open files to 10032 (it was originally set to 1024).
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 5.0.5 (afd44f71/1) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 23408
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+23408:M 21 Jun 2019 17:09:38.569 # Server initialized
+23408:M 21 Jun 2019 17:09:38.569 # Short read or OOM loading DB. Unrecoverable error, aborting now.
+23408:M 21 Jun 2019 17:09:38.569 # Internal error in RDB reading function at rdb.c:2058 -> Unexpected EOF reading RDB file
+23430:C 21 Jun 2019 17:09:45.157 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+23430:C 21 Jun 2019 17:09:45.157 # Redis version=5.0.5, bits=64, commit=afd44f71, modified=1, pid=23430, just started
+23430:C 21 Jun 2019 17:09:45.158 # Configuration loaded
+23431:M 21 Jun 2019 17:09:45.160 * Increased maximum number of open files to 10032 (it was originally set to 1024).
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 5.0.5 (afd44f71/1) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 23431
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+23431:M 21 Jun 2019 17:09:45.161 # Server initialized
+23431:M 21 Jun 2019 17:09:45.161 # Short read or OOM loading DB. Unrecoverable error, aborting now.
+23431:M 21 Jun 2019 17:09:45.161 # Internal error in RDB reading function at rdb.c:2058 -> Unexpected EOF reading RDB file
+23462:C 21 Jun 2019 17:10:04.021 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+23462:C 21 Jun 2019 17:10:04.021 # Redis version=5.0.5, bits=64, commit=afd44f71, modified=1, pid=23462, just started
+23462:C 21 Jun 2019 17:10:04.021 # Configuration loaded
+23463:M 21 Jun 2019 17:10:04.023 * Increased maximum number of open files to 10032 (it was originally set to 1024).
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 5.0.5 (afd44f71/1) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 23463
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+23463:M 21 Jun 2019 17:10:04.024 # Server initialized
+23463:M 21 Jun 2019 17:10:04.024 # Short read or OOM loading DB. Unrecoverable error, aborting now.
+23463:M 21 Jun 2019 17:10:04.024 # Internal error in RDB reading function at rdb.c:2058 -> Unexpected EOF reading RDB file
+23478:C 21 Jun 2019 17:10:13.228 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+23478:C 21 Jun 2019 17:10:13.228 # Redis version=5.0.5, bits=64, commit=afd44f71, modified=1, pid=23478, just started
+23478:C 21 Jun 2019 17:10:13.228 # Configuration loaded
+23479:M 21 Jun 2019 17:10:13.230 * Increased maximum number of open files to 10032 (it was originally set to 1024).
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 5.0.5 (afd44f71/1) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 23479
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+23479:M 21 Jun 2019 17:10:13.231 # Server initialized
+23479:M 21 Jun 2019 17:10:13.231 # Short read or OOM loading DB. Unrecoverable error, aborting now.
+23479:M 21 Jun 2019 17:10:13.231 # Internal error in RDB reading function at rdb.c:2058 -> Unexpected EOF reading RDB file
+23490:C 21 Jun 2019 17:10:14.654 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+23490:C 21 Jun 2019 17:10:14.654 # Redis version=5.0.5, bits=64, commit=afd44f71, modified=1, pid=23490, just started
+23490:C 21 Jun 2019 17:10:14.655 # Configuration loaded
+23491:M 21 Jun 2019 17:10:14.657 * Increased maximum number of open files to 10032 (it was originally set to 1024).
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 5.0.5 (afd44f71/1) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 23491
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+23491:M 21 Jun 2019 17:10:14.658 # Server initialized
+23491:M 21 Jun 2019 17:10:14.658 # Short read or OOM loading DB. Unrecoverable error, aborting now.
+23491:M 21 Jun 2019 17:10:14.659 # Internal error in RDB reading function at rdb.c:2058 -> Unexpected EOF reading RDB file
+23496:C 21 Jun 2019 17:10:15.299 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+23496:C 21 Jun 2019 17:10:15.299 # Redis version=5.0.5, bits=64, commit=afd44f71, modified=1, pid=23496, just started
+23496:C 21 Jun 2019 17:10:15.299 # Configuration loaded
+23497:M 21 Jun 2019 17:10:15.301 * Increased maximum number of open files to 10032 (it was originally set to 1024).
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 5.0.5 (afd44f71/1) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 23497
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+23497:M 21 Jun 2019 17:10:15.302 # Server initialized
+23497:M 21 Jun 2019 17:10:15.302 # Short read or OOM loading DB. Unrecoverable error, aborting now.
+23497:M 21 Jun 2019 17:10:15.302 # Internal error in RDB reading function at rdb.c:2058 -> Unexpected EOF reading RDB file
+23502:C 21 Jun 2019 17:10:15.829 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+23502:C 21 Jun 2019 17:10:15.829 # Redis version=5.0.5, bits=64, commit=afd44f71, modified=1, pid=23502, just started
+23502:C 21 Jun 2019 17:10:15.829 # Configuration loaded
+23503:M 21 Jun 2019 17:10:15.832 * Increased maximum number of open files to 10032 (it was originally set to 1024).
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 5.0.5 (afd44f71/1) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 23503
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+23503:M 21 Jun 2019 17:10:15.833 # Server initialized
+23503:M 21 Jun 2019 17:10:15.834 # Short read or OOM loading DB. Unrecoverable error, aborting now.
+23503:M 21 Jun 2019 17:10:15.834 # Internal error in RDB reading function at rdb.c:2058 -> Unexpected EOF reading RDB file
+23508:C 21 Jun 2019 17:10:16.372 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+23508:C 21 Jun 2019 17:10:16.372 # Redis version=5.0.5, bits=64, commit=afd44f71, modified=1, pid=23508, just started
+23508:C 21 Jun 2019 17:10:16.372 # Configuration loaded
+23509:M 21 Jun 2019 17:10:16.375 * Increased maximum number of open files to 10032 (it was originally set to 1024).
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 5.0.5 (afd44f71/1) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 23509
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+23509:M 21 Jun 2019 17:10:16.375 # Server initialized
+23509:M 21 Jun 2019 17:10:16.375 # Short read or OOM loading DB. Unrecoverable error, aborting now.
+23509:M 21 Jun 2019 17:10:16.375 # Internal error in RDB reading function at rdb.c:2058 -> Unexpected EOF reading RDB file
+23515:C 21 Jun 2019 17:10:16.988 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+23515:C 21 Jun 2019 17:10:16.988 # Redis version=5.0.5, bits=64, commit=afd44f71, modified=1, pid=23515, just started
+23515:C 21 Jun 2019 17:10:16.988 # Configuration loaded
+23516:M 21 Jun 2019 17:10:16.990 * Increased maximum number of open files to 10032 (it was originally set to 1024).
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 5.0.5 (afd44f71/1) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 23516
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+23516:M 21 Jun 2019 17:10:16.991 # Server initialized
+23516:M 21 Jun 2019 17:10:16.991 # Short read or OOM loading DB. Unrecoverable error, aborting now.
+23516:M 21 Jun 2019 17:10:16.991 # Internal error in RDB reading function at rdb.c:2058 -> Unexpected EOF reading RDB file
+23522:C 21 Jun 2019 17:10:21.579 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+23522:C 21 Jun 2019 17:10:21.579 # Redis version=5.0.5, bits=64, commit=afd44f71, modified=1, pid=23522, just started
+23522:C 21 Jun 2019 17:10:21.579 # Configuration loaded
+23523:M 21 Jun 2019 17:10:21.581 * Increased maximum number of open files to 10032 (it was originally set to 1024).
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 5.0.5 (afd44f71/1) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 23523
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+23523:M 21 Jun 2019 17:10:21.582 # Server initialized
+23523:M 21 Jun 2019 17:10:21.582 # Short read or OOM loading DB. Unrecoverable error, aborting now.
+23523:M 21 Jun 2019 17:10:21.582 # Internal error in RDB reading function at rdb.c:2058 -> Unexpected EOF reading RDB file
+23744:C 21 Jun 2019 17:11:41.493 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+23744:C 21 Jun 2019 17:11:41.493 # Redis version=5.0.5, bits=64, commit=afd44f71, modified=1, pid=23744, just started
+23744:C 21 Jun 2019 17:11:41.493 # Configuration loaded
+23745:M 21 Jun 2019 17:11:41.495 * Increased maximum number of open files to 10032 (it was originally set to 1024).
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 5.0.5 (afd44f71/1) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 23745
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+23745:M 21 Jun 2019 17:11:41.496 # Server initialized
+23745:M 21 Jun 2019 17:11:41.496 # Internal error in RDB reading function at rdb.c:1796 -> Unknown RDB encoding type 63
+23885:C 21 Jun 2019 17:12:19.094 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+23885:C 21 Jun 2019 17:12:19.094 # Redis version=5.0.5, bits=64, commit=afd44f71, modified=1, pid=23885, just started
+23885:C 21 Jun 2019 17:12:19.094 # Configuration loaded
+23886:M 21 Jun 2019 17:12:19.096 * Increased maximum number of open files to 10032 (it was originally set to 1024).
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 5.0.5 (afd44f71/1) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 23886
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+23886:M 21 Jun 2019 17:12:19.097 # Server initialized
+23886:M 21 Jun 2019 17:12:19.097 * DB loaded from disk: 0.000 seconds
+23886:M 21 Jun 2019 17:12:19.097 * Ready to accept connections
+23886:M 21 Jun 2019 17:13:28.078 # User requested shutdown...
+23886:M 21 Jun 2019 17:13:28.078 * Saving the final RDB snapshot before exiting.
+23886:M 21 Jun 2019 17:13:28.090 * DB saved on disk
+23886:M 21 Jun 2019 17:13:28.090 * Removing the pid file.
+23886:M 21 Jun 2019 17:13:28.090 # Redis is now ready to exit, bye bye...
+21983:C 28 Jun 2019 14:58:24.873 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+21983:C 28 Jun 2019 14:58:24.946 # Redis version=5.0.5, bits=64, commit=afd44f71, modified=1, pid=21983, just started
+21983:C 28 Jun 2019 14:58:24.946 # Configuration loaded
+21985:M 28 Jun 2019 14:58:24.949 * Increased maximum number of open files to 10032 (it was originally set to 1024).
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 5.0.5 (afd44f71/1) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 21985
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+21985:M 28 Jun 2019 14:58:24.951 # Server initialized
+21985:M 28 Jun 2019 14:58:24.967 * DB loaded from disk: 0.017 seconds
+21985:M 28 Jun 2019 14:58:24.967 * Ready to accept connections
+21985:M 28 Jun 2019 15:00:11.826 # User requested shutdown...
+21985:M 28 Jun 2019 15:00:11.826 * Saving the final RDB snapshot before exiting.
+21985:M 28 Jun 2019 15:00:11.853 * DB saved on disk
+21985:M 28 Jun 2019 15:00:11.853 * Removing the pid file.
+21985:M 28 Jun 2019 15:00:11.853 # Redis is now ready to exit, bye bye...
+22551:C 28 Jun 2019 15:01:48.618 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+22551:C 28 Jun 2019 15:01:48.618 # Redis version=5.0.5, bits=64, commit=afd44f71, modified=1, pid=22551, just started
+22551:C 28 Jun 2019 15:01:48.619 # Configuration loaded
+22552:M 28 Jun 2019 15:01:48.621 * Increased maximum number of open files to 10032 (it was originally set to 1024).
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 5.0.5 (afd44f71/1) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 22552
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+22552:M 28 Jun 2019 15:01:48.621 # Server initialized
+22552:M 28 Jun 2019 15:01:48.621 * Ready to accept connections
+22552:M 28 Jun 2019 15:02:51.676 # User requested shutdown...
+22552:M 28 Jun 2019 15:02:51.676 * Saving the final RDB snapshot before exiting.
+22552:M 28 Jun 2019 15:02:51.687 * DB saved on disk
+22552:M 28 Jun 2019 15:02:51.687 * Removing the pid file.
+22552:M 28 Jun 2019 15:02:51.687 # Redis is now ready to exit, bye bye...
+23024:C 28 Jun 2019 15:03:51.645 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+23024:C 28 Jun 2019 15:03:51.645 # Redis version=5.0.5, bits=64, commit=afd44f71, modified=1, pid=23024, just started
+23024:C 28 Jun 2019 15:03:51.645 # Configuration loaded
+23025:M 28 Jun 2019 15:03:51.649 * Increased maximum number of open files to 10032 (it was originally set to 1024).
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 5.0.5 (afd44f71/1) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 23025
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+23025:M 28 Jun 2019 15:03:51.650 # Server initialized
+23025:M 28 Jun 2019 15:03:51.650 * DB loaded from disk: 0.000 seconds
+23025:M 28 Jun 2019 15:03:51.650 * Ready to accept connections
+23025:M 28 Jun 2019 15:05:58.221 # User requested shutdown...
+23025:M 28 Jun 2019 15:05:58.221 * Saving the final RDB snapshot before exiting.
+23025:M 28 Jun 2019 15:05:58.230 * DB saved on disk
+23025:M 28 Jun 2019 15:05:58.230 * Removing the pid file.
+23025:M 28 Jun 2019 15:05:58.230 # Redis is now ready to exit, bye bye...
+23423:C 28 Jun 2019 15:06:01.563 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+23423:C 28 Jun 2019 15:06:01.563 # Redis version=5.0.5, bits=64, commit=afd44f71, modified=1, pid=23423, just started
+23423:C 28 Jun 2019 15:06:01.563 # Configuration loaded
+23424:M 28 Jun 2019 15:06:01.565 * Increased maximum number of open files to 10032 (it was originally set to 1024).
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 5.0.5 (afd44f71/1) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 23424
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+23424:M 28 Jun 2019 15:06:01.566 # Server initialized
+23424:M 28 Jun 2019 15:06:01.566 * DB loaded from disk: 0.000 seconds
+23424:M 28 Jun 2019 15:06:01.566 * Ready to accept connections
+23424:M 28 Jun 2019 15:06:09.021 # User requested shutdown...
+23424:M 28 Jun 2019 15:06:09.021 * Saving the final RDB snapshot before exiting.
+23424:M 28 Jun 2019 15:06:09.030 * DB saved on disk
+23424:M 28 Jun 2019 15:06:09.030 * Removing the pid file.
+23424:M 28 Jun 2019 15:06:09.031 # Redis is now ready to exit, bye bye...
+25588:C 28 Jun 2019 15:23:40.448 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+25588:C 28 Jun 2019 15:23:40.449 # Redis version=5.0.5, bits=64, commit=afd44f71, modified=1, pid=25588, just started
+25588:C 28 Jun 2019 15:23:40.449 # Configuration loaded
+25589:M 28 Jun 2019 15:23:40.450 * Increased maximum number of open files to 10032 (it was originally set to 1024).
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 5.0.5 (afd44f71/1) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 25589
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+25589:M 28 Jun 2019 15:23:40.451 # Server initialized
+25589:M 28 Jun 2019 15:23:40.452 * DB loaded from disk: 0.000 seconds
+25589:M 28 Jun 2019 15:23:40.452 * Ready to accept connections
+25589:M 28 Jun 2019 15:30:12.050 # User requested shutdown...
+25589:M 28 Jun 2019 15:30:12.050 * Saving the final RDB snapshot before exiting.
+25589:M 28 Jun 2019 15:30:12.062 * DB saved on disk
+25589:M 28 Jun 2019 15:30:12.063 * Removing the pid file.
+25589:M 28 Jun 2019 15:30:12.063 # Redis is now ready to exit, bye bye...
+28296:C 28 Jun 2019 15:38:48.859 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+28296:C 28 Jun 2019 15:38:48.859 # Redis version=5.0.5, bits=64, commit=afd44f71, modified=1, pid=28296, just started
+28296:C 28 Jun 2019 15:38:48.859 # Configuration loaded
+28297:M 28 Jun 2019 15:38:48.860 * Increased maximum number of open files to 10032 (it was originally set to 1024).
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 5.0.5 (afd44f71/1) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 28297
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+28297:M 28 Jun 2019 15:38:48.861 # Server initialized
+28297:M 28 Jun 2019 15:38:48.861 * DB loaded from disk: 0.000 seconds
+28297:M 28 Jun 2019 15:38:48.861 * Ready to accept connections
+28297:M 28 Jun 2019 15:39:18.195 # User requested shutdown...
+28297:M 28 Jun 2019 15:39:18.195 * Saving the final RDB snapshot before exiting.
+28297:M 28 Jun 2019 15:39:18.207 * DB saved on disk
+28297:M 28 Jun 2019 15:39:18.207 * Removing the pid file.
+28297:M 28 Jun 2019 15:39:18.207 # Redis is now ready to exit, bye bye...
