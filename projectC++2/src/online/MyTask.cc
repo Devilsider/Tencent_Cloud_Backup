@@ -43,7 +43,6 @@ void MyTask::process()
     string resJsonStr = mycliRedis->get(_query);
     if(resJsonStr.empty())
     {
-
         initQuery();
         MyLibFile * mylib = MyLibFile::getInstance();
         string webpage = mylib->getWebPageFile();
