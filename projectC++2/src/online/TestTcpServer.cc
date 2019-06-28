@@ -7,6 +7,7 @@
 #include "Threadpool.h"
 #include "EcoServer.h"
 #include "TcpServer.h"
+#include "MyRedis.h"
 #include "MyLibFile.h"
 
 #include <unistd.h>
@@ -28,6 +29,9 @@ int main(void)
     //在线部分
     wd::MyLibFile *mylibfile=wd::MyLibFile::getInstance();
     mylibfile->read("../../pagelib/webpage.lib","../../pagelib/new_offset.lib","../../pagelib/InvertIndex.lib");
+    wd::MyRedis *myclient = wd::MyRedis::getInstance();
+    myclient->init("127.0.0.1",6379);
+    
     wd::EcoServer ecoServer("172.16.0.15",8889,4,10);
     ecoServer.start();
     return 0;

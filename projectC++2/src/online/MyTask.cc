@@ -39,86 +39,85 @@ void MyTask::initQuery()
 }
 void MyTask::process()
 {
-    initQuery();
-    MyLibFile * mylib = MyLibFile::getInstance();
-    string webpage = mylib->getWebPageFile();
-    unordered_map<int,std::pair<int,int>> offset = mylib->getOffset();
-    unordered_map<string,set<std::pair<int,double>>> invert = mylib->getInvertIndex();
+    MyRedis *mycliRedis = MyRedis::getInstance();
+    string resJsonStr = mycliRedis->get(_query);
+    if(resJsonStr.empty())
+    {
 
-    unordered_map<string,set<std::pair<int,double>>> web; //暂时存放同时出现这些候选词的网页
-    unordered_map<string,int> worfre;//统计词频
-    vector<pair<string,double>> wordWeight;
-    //可封装
-    for(auto iter = _words.begin();iter!=_words.end();++iter)
-    {//统计词频并查找网页set并且存入web中
-        auto res = worfre.find(*iter);
-        if(res==worfre.end())
-        {
-            //没有找到
-            worfre.insert(std::make_pair(*iter,1));
-        }else {
-            //找到了
-            ++res->second;
-        }
-        auto i = invert.find(*iter);
-        if(i==invert.end())
-        {
-            //不包含该单词
-            set<std::pair<int ,double>> tmpSet;//空集
-            web.insert(std::make_pair(*iter,tmpSet));
-        }else{
-            set<std::pair<int ,double>> docidAndWei=i->second;
-            web.insert(std::make_pair(*iter,docidAndWei));
-        }
-    }
-    //计算tf-idf
-    //可封装
-    for(auto iter = worfre.begin();iter!=worfre.end();++iter)
-    {
-        double tf = iter->second;
-        double N = offset.size();
-        double idf , df,weight;
-        auto resT = invert.find(iter->first);
-        if(resT == invert.end()){
-            df = 1;
-        }
-        else {
-            df = resT->second.size();
-        }
-        idf = log(N/df);
-        weight = tf * idf;
-        wordWeight.push_back(std::make_pair(iter->first,weight));
-    }
-    //归一化处理
-    double sum= 0;
-    for(auto iter = wordWeight.begin();iter!=wordWeight.end();++iter)
-    {
-        sum += iter->second* iter->second ;
-    }
-    sum =sqrt(sum);
-    for(auto iter = wordWeight.begin();iter!=wordWeight.end();++iter)
-    {
-        iter->second /= sum ;
-    }
+        initQuery();
+        MyLibFile * mylib = MyLibFile::getInstance();
+        string webpage = mylib->getWebPageFile();
+        unordered_map<int,std::pair<int,int>> offset = mylib->getOffset();
+        unordered_map<string,set<std::pair<int,double>>> invert = mylib->getInvertIndex();
 
-    createQueryWeb(web,wordWeight);
-    //获取单例对象MyRedis
-    /* MyRedis * mycli = MyRedis::getInstance(); */
-    /* string resJsonStr = mycli->get(_query); */
-    /* if(resJsonStr.empty()){ */
-    /*     //redis缓存中没找到 */
-    /* } */
-    /* else */
-    /* { */
-    /*     //缓存中找到结果了 */
-    /*     _conn->sendInLoop(resJsonStr); */
-    /*     return ; */ 
-    /* } */
-    
-    /* string res = encodeJson(); */
-    /* //向redis内写入数据 */
-    /* mycli->set(_query,res); */
+        unordered_map<string,set<std::pair<int,double>>> web; //暂时存放同时出现这些候选词的网页
+        unordered_map<string,int> worfre;//统计词频
+        vector<pair<string,double>> wordWeight;
+        //可封装
+        for(auto iter = _words.begin();iter!=_words.end();++iter)
+        {//统计词频并查找网页set并且存入web中
+            auto res = worfre.find(*iter);
+            if(res==worfre.end())
+            {
+                //没有找到
+                worfre.insert(std::make_pair(*iter,1));
+            }else {
+                //找到了
+                ++res->second;
+            }
+            auto i = invert.find(*iter);
+            if(i==invert.end())
+            {
+                //不包含该单词
+                set<std::pair<int ,double>> tmpSet;//空集
+                web.insert(std::make_pair(*iter,tmpSet));
+            }else{
+                set<std::pair<int ,double>> docidAndWei=i->second;
+                web.insert(std::make_pair(*iter,docidAndWei));
+            }
+        }
+        //计算tf-idf
+        //可封装
+        for(auto iter = worfre.begin();iter!=worfre.end();++iter)
+        {
+            double tf = iter->second;
+            double N = offset.size();
+            double idf , df,weight;
+            auto resT = invert.find(iter->first);
+            if(resT == invert.end()){
+                df = 1;
+            }
+            else {
+                df = resT->second.size();
+            }
+            idf = log(N/df);
+            weight = tf * idf;
+            wordWeight.push_back(std::make_pair(iter->first,weight));
+        }
+        //归一化处理
+        double sum= 0;
+        for(auto iter = wordWeight.begin();iter!=wordWeight.end();++iter)
+        {
+            sum += iter->second* iter->second ;
+        }
+        sum =sqrt(sum);
+        for(auto iter = wordWeight.begin();iter!=wordWeight.end();++iter)
+        {
+            iter->second /= sum ;
+        }
+
+        createQueryWeb(web,wordWeight);
+    } 
+    else {
+        cout<<"query finish !"<<endl;
+        string tmp =std::to_string(resJsonStr.size());
+        tmp = tmp+"\n";
+        _conn->sendInLoop(tmp);
+        _conn->sendInLoop(resJsonStr);
+        return;
+    }
     string res = encodeJson();
+    mycliRedis->set(_query,res);
     cout<<"query finish !"<<endl;
     cout<<res<<endl;
     string tmp = std::to_string(res.size());
@@ -227,7 +226,6 @@ string MyTask::encodeJson()
             break;
         }
         MyNode node = _resQue.top();
-        cout<<node._docid<<" " <<node._cos<<endl;
         auto iter = offsetLib.find(node._docid);
         offset = iter->second.first;
         len = iter->second.second;
