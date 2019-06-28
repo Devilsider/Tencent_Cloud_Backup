@@ -11,7 +11,6 @@ namespace wd
 void EcoServer::onConnection(const TcpConnectionPtr &conn)
 {
    cout<<conn->toString() <<" has connected! "<<endl;
-   conn->send("welcome to server.");
 }
 
 
@@ -19,7 +18,7 @@ void EcoServer::onMessage(const TcpConnectionPtr &conn)
 {
     cout<<"onMessage..."<<endl;
     string msg = conn->receive();//jason字符串
-    cout<<" msg = "<<msg<<endl;
+    printf("msg = %s\n",msg.c_str());
     //业务逻辑交给子线程
     //decode,解封装
     //compute,提取出待查询单词

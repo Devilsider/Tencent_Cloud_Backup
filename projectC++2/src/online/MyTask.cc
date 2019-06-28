@@ -118,10 +118,13 @@ void MyTask::process()
     /* string res = encodeJson(); */
     /* //向redis内写入数据 */
     /* mycli->set(_query,res); */
-    encodeJson();
+    string res = encodeJson();
     cout<<"query finish !"<<endl;
-    
-    _conn->sendInLoop("hello"); 
+    cout<<res<<endl;
+    string tmp = std::to_string(res.size());
+    tmp = tmp+"\n";
+    _conn->sendInLoop(tmp); 
+    _conn->sendInLoop(res); 
 }
 void MyTask::createQueryWeb(unordered_map<string,set<std::pair<int,double>>>&resWeb,
                             vector<std::pair<string,double>>& wordWeight)
@@ -245,15 +248,19 @@ string MyTask::encodeJson()
         _resQue.pop();
     }
     
-    /* while(!_que.empty()){ */
-    /*     cout<<_que.front().getDocid()<<endl; */
-    /*     cout<<_que.front().getLink()<<endl; */
-    /*     cout<<_que.front().getTitle()<<endl; */
-    /*     cout<<_que.front().getDescription()<<endl; */
-    /*     cout<<_que.front().getContent()<<endl; */
-    /*     _que.pop(); */
-    /* } */
-    return "";
+    //将结果封装成json
+    while(!_que.empty())
+    {
+        item["title"]=_que.front().getTitle();
+        item["url"]=_que.front().getLink();
+        /* item["摘要"]=_que.front().getDescription(); */
+        item["summary"]="暂时未自动生成摘要";
+        root["files"].append(item);
+        _que.pop();
+    }
+    /* root["file"].append(arrobj); */
+    ifsWeb.close();
+    return root.toStyledString();
 }
 string MyTask::decodeJson()
 {
