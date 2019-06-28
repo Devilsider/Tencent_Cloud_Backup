@@ -38,7 +38,7 @@ private:
     string _query;//带查询的输入的字符串
     TcpConnectionPtr _conn;//conn->sendLoop(msg);延迟到IO线程传输
     vector<string> _words;//存储分割后的单词
-    queue<MyWebPage> _que; 
+    queue<MyWebPage> _que; //按序列存储结果网页
     priority_queue<MyNode> _resQue;//存储网页号和cos结果值
 };
 

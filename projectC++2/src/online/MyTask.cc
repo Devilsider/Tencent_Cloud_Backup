@@ -118,7 +118,7 @@ void MyTask::process()
     /* string res = encodeJson(); */
     /* //向redis内写入数据 */
     /* mycli->set(_query,res); */
-    
+    encodeJson();
     cout<<"query finish !"<<endl;
     
     _conn->sendInLoop("hello"); 
@@ -182,12 +182,6 @@ void MyTask::createQueryWeb(unordered_map<string,set<std::pair<int,double>>>&res
         node._cos = res;
         _resQue.push(node);
     }
-    while(_resQue.size()!=0) {
-        MyNode node = _resQue.top();
-        cout<<node._docid<<" "<<node._cos<<endl;
-        _resQue.pop();
-    }
-    cout<<endl;
 
 }
 double MyTask::calCos(vector<double> &v1,vector<double> &v2)
@@ -208,9 +202,58 @@ double MyTask::calCos(vector<double> &v1,vector<double> &v2)
 }
 string MyTask::encodeJson()
 {
-    //返回前三个候选词
-    return NULL;
+    //返回前三个候选网页
+    ifstream ifsWeb("../../pagelib/webpage.lib");
+    int docid;
+    int offset;
+    int len;
+    MyLibFile * mylib = MyLibFile::getInstance();
+    unordered_map<int,std::pair<int,int>> offsetLib = mylib->getOffset();
 
+    MyPage mypage;
+    Json::Value root;
+    Json::Value item;
+    Json::Value arrobj;
+    for(int idx = 0;idx<3;++idx)
+    {
+        //取前三个网页
+        char buff[65536];
+        string tmp;
+        if(_resQue.empty())
+        {
+            break;
+        }
+        MyNode node = _resQue.top();
+        cout<<node._docid<<" " <<node._cos<<endl;
+        auto iter = offsetLib.find(node._docid);
+        offset = iter->second.first;
+        len = iter->second.second;
+        if(iter!=offsetLib.end())
+        {
+            ifsWeb.seekg(offset,ifsWeb.beg);
+            ifsWeb.read(buff,len);
+            tmp = buff;
+            mypage.parse(tmp);
+            MyWebPage page(mypage.getDocid(),
+                           mypage.getLink(),
+                           mypage.getTitle(),
+                           mypage.getDescription(),
+                           mypage.getContent(),
+                           mypage.getWordFreMap());
+            _que.push(page);
+        }
+        _resQue.pop();
+    }
+    
+    /* while(!_que.empty()){ */
+    /*     cout<<_que.front().getDocid()<<endl; */
+    /*     cout<<_que.front().getLink()<<endl; */
+    /*     cout<<_que.front().getTitle()<<endl; */
+    /*     cout<<_que.front().getDescription()<<endl; */
+    /*     cout<<_que.front().getContent()<<endl; */
+    /*     _que.pop(); */
+    /* } */
+    return "";
 }
 string MyTask::decodeJson()
 {
