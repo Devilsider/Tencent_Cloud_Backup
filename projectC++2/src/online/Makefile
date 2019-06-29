@@ -2,7 +2,7 @@ INC_DIR:= ../../include/
 SRC_DIR:= ./
 SRCS:=$(wildcard *.cc )
 OBJS:= $(patsubst %.cc, %.o, $(SRCS))
-LIBS:= -lpthread -std=c++11 -ljson -lcpp_redis -ltacopie
+LIBS:= -lpthread -std=c++11 -ljson -lcpp_redis -ltacopie -lpython2.7
 
 CXX:=g++
 

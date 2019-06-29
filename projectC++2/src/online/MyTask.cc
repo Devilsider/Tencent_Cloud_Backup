@@ -12,6 +12,7 @@
 #include "MyRedis.h"
 #include "Jieba.hpp"
 #include "MyLibFile.h"
+#include "MySummary.h"
 
 #include <sstream>
 #include <numeric>

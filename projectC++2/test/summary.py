@@ -8,7 +8,7 @@ doc = """自然语言处理: 是人工智能和语言学领域的分支学科。
 
 res='' 
 for p in xmnlp.keyphrase(doc):
-    res=res+''.join(p) 
+    res=res+''.join(p)+','
     print(''.join(p))
 
 print(res)
