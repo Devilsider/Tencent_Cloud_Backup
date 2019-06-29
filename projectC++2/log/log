@@ -666,3 +666,8 @@
 23882:C 28 Jun 2019 21:03:03.190 * DB saved on disk
 23882:C 28 Jun 2019 21:03:03.190 * RDB: 0 MB of memory used by copy-on-write
 14744:M 28 Jun 2019 21:03:03.276 * Background saving terminated with success
+14744:M 29 Jun 2019 15:15:06.369 * 1 changes in 900 seconds. Saving...
+14744:M 29 Jun 2019 15:15:06.371 * Background saving started by pid 30744
+30744:C 29 Jun 2019 15:15:06.385 * DB saved on disk
+30744:C 29 Jun 2019 15:15:06.385 * RDB: 0 MB of memory used by copy-on-write
+14744:M 29 Jun 2019 15:15:06.472 * Background saving terminated with success

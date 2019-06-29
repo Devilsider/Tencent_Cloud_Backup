@@ -247,12 +247,14 @@ string MyTask::encodeJson()
     }
     
     //将结果封装成json
+    /* MySummary mySummary; */
     while(!_que.empty())
     {
         item["title"]=_que.front().getTitle();
         item["url"]=_que.front().getLink();
-        /* item["摘要"]=_que.front().getDescription(); */
-        item["summary"]="暂时未自动生成摘要";
+        /* string sum = mySummary.summary(_que.front().getDescription()); */
+        /* cout<< sum <<endl; */ 
+        item["summary"]=_que.front().getTitle();
         root["files"].append(item);
         _que.pop();
     }
